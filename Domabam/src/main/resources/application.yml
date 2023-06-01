@@ -7,3 +7,28 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
     operations-sorter: alpha
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 560377445427-57jr939gh7a4n42ikodqenu27gh1uut2.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - profile
+              - email
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lh_test?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: tmdwo928@
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
