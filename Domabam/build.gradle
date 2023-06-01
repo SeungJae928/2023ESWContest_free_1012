@@ -45,6 +45,9 @@ dependencies {
 
 	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation 'org.hibernate.validator:hibernate-validator'
+	implementation 'org.glassfish:jakarta.el'
 }
 
 tasks.named('test') {

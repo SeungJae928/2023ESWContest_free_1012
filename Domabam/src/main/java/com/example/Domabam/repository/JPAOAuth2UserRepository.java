@@ -38,6 +38,7 @@ public class JPAOAuth2UserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
+        System.out.println("Hello");
         em.persist(user);
     }
 }

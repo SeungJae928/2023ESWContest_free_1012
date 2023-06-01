@@ -53,6 +53,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
        User userEntity = userRepository.findByName(username);
         if(userEntity == null){
+            System.out.println("hello");
             LocalDateTime create_date = LocalDateTime.now();
             userEntity = User.builder()
                     .name(username)
