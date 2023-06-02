@@ -33,12 +33,16 @@ public class JPAOAuth2UserRepository implements UserRepository {
     @Override
     public User findByName(String name) {
         User user = em.find(User.class, name);
+        System.out.println(user);
+//        Optional<User> o = em.createQuery("select m from user m where m.name = :name", User.class)
+//                .setParameter("name", name)
+//                .getResultStream().findAny();
+//        User user = o.get();
         return user;
     }
 
     @Override
     public void save(User user) {
-        System.out.println("Hello");
         em.persist(user);
     }
 }

@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class PrincipalService implements UserDetailsService {
 
@@ -17,7 +15,6 @@ public class PrincipalService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("pr");
         User user = userRepository.findById(username);
         if(user != null){
             return new PrincipalDetails(user);

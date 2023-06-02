@@ -5,26 +5,31 @@ import com.example.Domabam.domain.User;
 import com.example.Domabam.oauth2.GoogleUserInfo;
 import com.example.Domabam.oauth2.OAuth2UserInfo;
 import com.example.Domabam.oauth2.PrincipalDetails;
+import com.example.Domabam.repository.JPAUserRepository;
 import com.example.Domabam.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
+@Transactional
 public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
 //    @Autowired
 //    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    private JPAUserRepository userRepository;
+
+//    public PrincipalOAuth2UserService(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
@@ -45,15 +50,13 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
         String provider = oAuth2UserInfo.getProvider();
         String providerId = oAuth2UserInfo.getProviderId();
-        String username = provider + " " + providerId;
+        String username = provider + "_" + providerId;
         String password = "TEST";
 //        String password = bCryptPasswordEncoder.encode("테스트");
         String email = oAuth2UserInfo.getEmail();
         Role role = Role.USER;
-
        User userEntity = userRepository.findByName(username);
         if(userEntity == null){
-            System.out.println("hello");
             LocalDateTime create_date = LocalDateTime.now();
             userEntity = User.builder()
                     .name(username)
@@ -64,7 +67,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
                     .provider_id(providerId)
                     .createDate(create_date)
                     .build();
-
+            System.out.println("Build");
             userRepository.save(userEntity);
         }
 
