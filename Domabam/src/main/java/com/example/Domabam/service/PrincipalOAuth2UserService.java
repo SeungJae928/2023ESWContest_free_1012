@@ -2,11 +2,8 @@ package com.example.Domabam.service;
 
 import com.example.Domabam.domain.Role;
 import com.example.Domabam.domain.User;
-import com.example.Domabam.oauth2.GoogleUserInfo;
-import com.example.Domabam.oauth2.OAuth2UserInfo;
-import com.example.Domabam.oauth2.PrincipalDetails;
+import com.example.Domabam.oauth2.*;
 import com.example.Domabam.repository.JPAUserRepository;
-import com.example.Domabam.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -43,6 +41,12 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
         if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        }
+        else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        }
+        else if(userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+            oAuth2UserInfo = new KakaoUserInfo((Map)oAuth2User.getAttributes().get("kakao_account"), String.valueOf(oAuth2User.getAttributes().get("id")));
         }
         else {
             System.out.println("지원하지 않는 서비스");

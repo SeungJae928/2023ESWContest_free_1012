@@ -1,14 +1,8 @@
 package com.example.Domabam;
 
-import com.example.Domabam.repository.JPAOAuth2UserRepository;
-import com.example.Domabam.repository.JPAUserRepository;
-import com.example.Domabam.service.PrincipalOAuth2UserService;
-import com.example.Domabam.service.PrincipalService;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.parameters.P;
 
 @Configuration
 public class AppConfig {
