@@ -1,12 +1,15 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useQuery} from "react-query";
 
 function App() {
-    
+
+    const Url = "http://localhost:8080";
+
     return (
         <div>
-            백엔드에서 가져온 데이터입니다 :
+
         </div>
     );
 }
