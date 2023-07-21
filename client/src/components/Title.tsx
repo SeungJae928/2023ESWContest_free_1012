@@ -15,7 +15,7 @@ export default function Title() {
 };
 
 const styles = StyleSheet.create({
-    text: {color: Colors.white, textAlign: 'center', fontSize: 25, fontWeight: 'bold'},
+    text: {color: Colors.white, textAlign: 'center', fontSize: 25, fontFamily: 'Oswald-Bold'},
     icon: {color: Colors.white},
     centerView:{alignItems: 'center', flexDirection: 'row'}
 })
