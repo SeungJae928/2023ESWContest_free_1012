@@ -16,7 +16,7 @@ export default function App(){
     <>
     <SafeAreaView style={styles.flex}>
       <TopBar />
-      <Content />
+      <Content/>
       <BottomBar />
     </SafeAreaView>
     </>

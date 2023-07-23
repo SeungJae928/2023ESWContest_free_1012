@@ -1629,6 +1629,13 @@
   resolved "https://registry.npmjs.org/@tsconfig/react-native/-/react-native-3.0.2.tgz"
   integrity sha512-F7IoHEqf741lut4Z2K+IkWQRvXAhBiZMeY5L7BysG7Z2Z3MlIyFR+AagD8jQ/CqC1vowGnRwfLjeuwIpaeoJxA==
 
+"@types/faker@^6.6.9":
+  version "6.6.9"
+  resolved "https://registry.npmjs.org/@types/faker/-/faker-6.6.9.tgz"
+  integrity sha512-Y9YYm5L//8ooiiknO++4Gr539zzdI0j3aXnOBjo1Vk+kTvffY10GuE2wn78AFPECwZ5MYGTjiDVw1naLLdDimw==
+  dependencies:
+    faker "*"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.4"
   resolved "https://registry.npmjs.org/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz"
@@ -2445,6 +2452,11 @@ execa@^5.0.0:
     onetime "^5.1.2"
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
+
+faker@*, faker@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.npmjs.org/faker/-/faker-5.5.3.tgz"
+  integrity sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==
 
 fast-xml-parser@^4.0.12:
   version "4.2.6"

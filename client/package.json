@@ -3,6 +3,8 @@
     "@expo/metro-config": "^0.10.7",
     "@react-native/metro-config": "^0.72.9",
     "@tsconfig/react-native": "^3.0.2",
+    "@types/faker": "^6.6.9",
+    "faker": "^5.5.3",
     "react-native": "^0.72.3",
     "react-native-paper": "^5.9.1",
     "react-native-splash-screen": "^3.3.0"
