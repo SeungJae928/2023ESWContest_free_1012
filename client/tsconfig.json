@@ -10,7 +10,6 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
-    "extends": "@tsconfig/react-native/tsconfig.json",
     
     "paths": {
       "*": ["node_modules/*"]

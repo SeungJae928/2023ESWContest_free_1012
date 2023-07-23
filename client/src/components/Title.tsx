@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Alert} from 'react-native';
 import {MD2Colors as Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -9,7 +9,7 @@ export default function Title() {
     return(
         <View style={styles.centerView}>
             <Icon name="snake" style={styles.icon} size={30}/>
-            <Text style={styles.text}>{title}</Text>
+            <Text style={styles.text} onPress={() => {Alert.alert('title pressed')}}>{title}</Text>
         </View>
     )
 };
