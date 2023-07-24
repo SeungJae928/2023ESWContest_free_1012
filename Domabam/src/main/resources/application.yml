@@ -56,9 +56,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sys?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password:
+    url: jdbc:mysql://lh-database.co1dsjjo1bam.ap-northeast-2.rds.amazonaws.com:3306/LHdatabase?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: tmdwo928
+    password: rats8005
 
   jpa:
     show-sql: true
