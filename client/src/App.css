@@ -1,10 +1,41 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.set-bar{
+    display: flex;
+    flex-direction: row;
+}
+
+.top-nav{
+    background : black;
+    color: white;
+    padding: 10px;
+}
+
+.login-profile{
+    display : flex;
+    flex-direction : row;
+    padding : 5px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    overflow: hidden;
+    background: #BDBDBD;
+    object-fit: cover;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -28,6 +59,21 @@
   color: #61dafb;
 }
 
+.contentWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bottom-nav{
+    vertical-align: middle;
+    height: 40px;
+    display: flex;
+    background : lightgray;
+    padding-left : 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +81,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login-profile{
+    text-align: center;
+    background-color: grey;
+    width: 200px; height: 40px;
+    color: white;
+    border-radius: 10px 10px 10px 10px / 10px 10px 10px 10px;
+}
+
+a{
+    color: white;
+    vertical-align: middle;
+    margin : auto;
+    text-decoration: none;
+}
+
+img{
+    display: block;
 }
