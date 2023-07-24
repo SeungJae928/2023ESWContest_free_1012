@@ -23,6 +23,8 @@ export const createCage = (): CData => {
     const start_lamp = new Date()
     const end_lamp = new Date()
 
+    const mode = 'default mode'
+
     return {
         current_temp,
         current_humid,
@@ -45,5 +47,7 @@ export const createCage = (): CData => {
     
         start_lamp,
         end_lamp,
+
+        mode,
     }
   }

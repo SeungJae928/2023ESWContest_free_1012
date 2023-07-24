@@ -20,4 +20,6 @@ export type CData = {
 
     start_lamp: Date,
     end_lamp: Date,
+
+    mode: string
 }

@@ -5,6 +5,7 @@ import Content from './src/components/Content';
 import { SafeAreaView,ScrollView,StyleSheet,Text,View } from 'react-native';
 import { MD2Colors as Colors, Menu } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
+import FloatingIcon from './src/components/FloatingIcon'
 
 export default function App(){
 
@@ -18,6 +19,7 @@ export default function App(){
       <TopBar />
       <Content/>
       <BottomBar />
+      <FloatingIcon/>
     </SafeAreaView>
     </>
   );
