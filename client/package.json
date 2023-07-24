@@ -6,8 +6,11 @@
     "@types/faker": "^6.6.9",
     "faker": "^5.5.3",
     "react-native": "^0.72.3",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-paper": "^5.9.1",
-    "react-native-splash-screen": "^3.3.0"
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-svg": "^13.10.0",
+    "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {
     "metro-config": "^0.77.0"
