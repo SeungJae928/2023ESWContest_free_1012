@@ -1,8 +1,9 @@
 import React from 'react';
 import { FC } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import * as Data from '../data';
 import { ItemBox } from './ItemBox';
+import { MD2Colors as Colors } from 'react-native-paper';
 
 export type values = {
     cage : Data.CData
@@ -21,20 +22,25 @@ export const HomeComp: FC<values> = ({cage}) => {
                 val2={cage.max_temp} val2_name='max humid'
                 val3={cage.min_temp} val3_name='min humid'/>
 
-            <ItemBox boxName='Temperature' buttonName='edit settings' 
-                needGraph = {true} val1={cage.current_temp} val1_name='current temp' 
+            <ItemBox boxName='Lamp' buttonName='edit settings' 
+                needGraph = {false} val1={cage.current_temp} val1_name='current temp' 
                 val2={cage.max_temp} val2_name='max temp'
                 val3={cage.min_temp} val3_name='min temp'/>
 
-            <ItemBox boxName='Temperature' buttonName='edit settings' 
-                needGraph = {true} val1={cage.current_temp} val1_name='current temp' 
+            <ItemBox boxName='Pump' buttonName='edit settings' 
+                needGraph = {false} val1={cage.current_temp} val1_name='current temp' 
                 val2={cage.max_temp} val2_name='max temp'
                 val3={cage.min_temp} val3_name='min temp'/>
 
-            <ItemBox boxName='Temperature' buttonName='edit settings' 
-                needGraph = {true} val1={cage.current_temp} val1_name='current temp' 
-                val2={cage.max_temp} val2_name='max temp'
-                val3={cage.min_temp} val3_name='min temp'/>
+            <ItemBox boxName='Mode' buttonName='edit mode' 
+                needGraph = {false} val1={cage.mode} val1_name='current mode: ' 
+                />
+
+            <View style={styles.blank}/>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    blank: {backgroundColor: Colors.grey800 , padding: 30}
+})
