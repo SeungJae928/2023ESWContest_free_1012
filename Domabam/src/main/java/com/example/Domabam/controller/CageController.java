@@ -52,7 +52,7 @@ public class CageController {
     @Operation(summary = "get Temp Data", description = "userId를 통해 온도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
     @GetMapping("/api/cage/getTemp")
-    public List<Temperature> getTemp() {
+    public List<Integer> getTemp() {
         return cageService.getTempData(Long.parseLong("2"));
     }
 
@@ -75,10 +75,10 @@ public class CageController {
         jpaHumidRepository.deleteByUserid(Long.parseLong("2"));
     }
 
-    @Operation(summary = "delete Oldest Humid Data", description = "userId를 통해 습도값 얻기")
+    @Operation(summary = "get Humid Data", description = "userId를 통해 습도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
     @GetMapping("/api/cage/getHumid")
-    public List<Humidity> getHumid() {
+    public List<Integer> getHumid() {
         return cageService.getHumidData(Long.parseLong("2"));
     }
 

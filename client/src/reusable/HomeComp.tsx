@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FC } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import * as Data from '../data';
@@ -10,6 +10,12 @@ export type values = {
 }
 
 export const HomeComp: FC<values> = ({cage}) => {
+
+    const [temp, setTemp] = useState('')
+    const [humid, setHumid] = useState('')
+
+    
+
     return (
         <View>
             <ItemBox boxName='Temperature' buttonName='edit settings' 

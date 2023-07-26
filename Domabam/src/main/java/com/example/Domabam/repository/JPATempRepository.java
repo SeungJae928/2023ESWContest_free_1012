@@ -12,6 +12,11 @@ import java.util.List;
 
 @Repository
 public interface JPATempRepository extends JpaRepository<Temperature, Long> {
+
+    @Transactional
+    @Query(value = "SELECT t.temperature FROM temperature t WHERE t.userID = :userId", nativeQuery = true)
+    List<Integer> findTempByUserID(Long userId);
+
     List<Temperature> findByUserID(Long userid);
 
     @Transactional

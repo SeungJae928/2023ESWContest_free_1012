@@ -58,12 +58,12 @@ public class CageService {
         jpaHumidRepository.save(humid);
     }
 
-    public List<Temperature> getTempData(Long id) {
-        return jpaTempRepository.findByUserID(id);
+    public List<Integer> getTempData(Long id) {
+        return jpaTempRepository.findTempByUserID(id);
     }
 
-    public List<Humidity> getHumidData(Long id) {
-        return jpaHumidRepository.findByUserID(id);
+    public List<Integer> getHumidData(Long id) {
+        return jpaHumidRepository.findHumidByUserID(id);
     }
 
 }

@@ -14,7 +14,11 @@ import java.util.List;
 @Repository
 public interface JPAHumidRepository extends JpaRepository<Humidity, Long> {
 
-    List<Humidity> findByUserID(Long userid);
+    @Transactional
+    @Query(value = "SELECT h.humidity FROM humidity h WHERE h.userID = :userId", nativeQuery = true)
+    List<Integer> findHumidByUserID(Long userId);
+
+    List<Humidity> findByUserID(Long userId);
 
     @Transactional
     @Modifying
