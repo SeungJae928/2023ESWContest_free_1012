@@ -30,7 +30,7 @@ export default function Graph() {
         }
       ]
     }}
-    width={Dimensions.get("window").width - 20} // from react-native
+    width={Dimensions.get("window").width * 0.9} // from react-native
     height={220}
     yAxisLabel="$"
     yAxisSuffix="k"
@@ -62,5 +62,5 @@ export default function Graph() {
 }
 
 const styles = StyleSheet.create({
-  graph: {flex: 1, padding: 10}
+  graph: { margin: 10 }
 })

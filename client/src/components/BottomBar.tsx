@@ -21,7 +21,7 @@ export default function BottomBar() {
 
 const styles = StyleSheet.create({
     view: {
-        backgroundColor: 'darkgrey', 
+        backgroundColor: Colors.grey800, 
         alignItems: 'center', 
         flexDirection: 'row', 
         justifyContent: 'space-evenly', 
