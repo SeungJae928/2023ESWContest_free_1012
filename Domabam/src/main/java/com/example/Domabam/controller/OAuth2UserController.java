@@ -11,6 +11,7 @@ public class OAuth2UserController {
 
     @GetMapping("/login")
     public String loginForm(){
+        System.out.println("Login Form");
         return "loginForm";
     }
 

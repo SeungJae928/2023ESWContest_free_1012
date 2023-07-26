@@ -4,6 +4,7 @@
     "@react-native/metro-config": "^0.72.9",
     "@tsconfig/react-native": "^3.0.2",
     "@types/faker": "^6.6.9",
+    "axios": "^1.4.0",
     "css-select": "^5.1.0",
     "deprecated-react-native-prop-types": "^4.2.0",
     "domutils": "^3.1.0",
