@@ -62,7 +62,7 @@ public class CageController {
     public void insertHumid(@RequestParam Integer humid) {
         Humidity humidity = new Humidity();
         humidity.setHumid(humid);
-        humidity.setId(Long.parseLong("100")); .
+        humidity.setId(Long.parseLong("100"));
         humidity.setUserID(Long.parseLong("2"));
         humidity.setObtained_time(LocalDateTime.now());
         jpaHumidRepository.save(humidity);
