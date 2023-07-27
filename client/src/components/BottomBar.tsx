@@ -4,7 +4,7 @@ import {MD2Colors as Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const iconList = [ 'thermometer-low', 'clock', 'lamp', 'percent' ];
-const iconColor = 'white';
+const iconColor = Colors.white;
 const iconSize = 30;
 const onPress = () => {Alert.alert('Icon is pressed', 'testmessage')}
 
@@ -14,7 +14,9 @@ export default function BottomBar() {
         name={name} 
         color={iconColor} 
         size={iconSize} 
-        onPress={onPress}/>
+        onPress={onPress} 
+        //backgroundColor={Colors.white} padding={5}
+        />
     ))
     return <View style={styles.view}>{icon}</View>
 };
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         flexDirection: 'row', 
         justifyContent: 'space-evenly', 
-        padding: 10
+        padding: 10,
     }
 })
 

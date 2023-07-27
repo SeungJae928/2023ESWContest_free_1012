@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
     icon: {color: Colors.purple500},
     absoluteView:{
         alignItems: 'center', flexDirection: 'row', position: 'absolute', backgroundColor: Colors.white,
-        borderRadius: 30, right: '42%', bottom : 35, shadowOpacity: 0.5, shadowRadius: 4, elevation: 5,
+        borderRadius: 30, right: '42%', bottom : 35, shadowOpacity: 0.5, shadowRadius: 4, elevation: 5
     }
 })

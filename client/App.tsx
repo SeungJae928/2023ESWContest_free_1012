@@ -1,11 +1,16 @@
-import React, {Component, useEffect} from 'react';
-import TopBar from './src/components/TopBar';
-import BottomBar from './src/components/BottomBar';
-import Content from './src/components/Content';
+import React, {Component, useEffect, useCallback} from 'react';
 import { SafeAreaView,ScrollView,StyleSheet,Text,View } from 'react-native';
 import { MD2Colors as Colors, Menu } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
-import FloatingIcon from './src/components/FloatingIcon'
+import LoginScreen from './src/pages/screens/login_screen';
+import HomeScreen from './src/pages/screens/home_screen';
+import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {enableScreens} from 'react-native-screens';
+import {useColorScheme} from 'react-native-appearance';
+import 'react-native-gesture-handler'
+
+enableScreens()
 
 export default function App(){
 
@@ -14,14 +19,11 @@ export default function App(){
   }, []);
 
   return (
-    <>
-    <SafeAreaView style={styles.flex}>
-      <TopBar />
-      <Content/>
-      <BottomBar />
-      <FloatingIcon/>
-    </SafeAreaView>
-    </>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <LoginScreen/>
+      </NavigationContainer>
+    </SafeAreaProvider> 
   );
 }
 
