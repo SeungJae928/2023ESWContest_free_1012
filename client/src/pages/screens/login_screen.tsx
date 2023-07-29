@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors, Menu } from 'react-native-paper'
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   return (
     <View style={[styles.view]}>
       <View>
@@ -13,10 +13,10 @@ export default function LoginScreen() {
       <View>
         <TextInput style={styles.textInput} placeholder="ID/EMAIL"/>
         <TextInput style={styles.textInput} placeholder="PASSWORD"/>
-        <Text style={[styles.button]} onPress = {() => {Alert.alert('버튼 눌림')}}>Login</Text>
-        <Text style={[styles.sign_in]} onPress={() => {Alert.alert('Go to Sign in Page')}}>SIGN IN</Text>
+        <Text style={[styles.button]} onPress = {() => navigation.navigate('Main')}>Login</Text>
+        <Text style={[styles.sign_in]} onPress={() => {Alert.alert('Go to Sign in Page')}}>SIGN UP</Text>
       </View>
-      
+
       <View style={[styles.social]}>
         <Image style={[styles.icon]} source={require('../../images/naver.png')}/>
         <Image style={[styles.icon]} source={require('../../images/kakaotalk.png')}/>
@@ -31,20 +31,20 @@ const styles = StyleSheet.create({
 
   logo: {paddingLeft: '37%'},
 
-  title: {color: Colors.purple800, fontSize: 40, fontFamily: 'Oswald-Bold', textAlign:'center', marginBottom: 40},
+  title: {color: Colors.purple500, fontSize: 40, fontFamily: 'Oswald-Bold', textAlign:'center', marginBottom: 40},
 
   textInput: {fontFamily: 'Oswald-Bold', backgroundColor: 'white', borderWidth: 3, borderRadius: 10, 
-  padding: 10, marginLeft: 30, marginRight: 30, marginTop: 15, fontSize: 15},
+  padding: 10, marginLeft: '10%', marginRight: '10%', marginTop: 15, fontSize: 15},
 
-  button: {color: Colors.white, fontSize: 20, fontFamily: 'Oswald-Bold', backgroundColor: Colors.purple800, 
-    borderRadius: 10, padding: 10, marginLeft: 30, marginRight: 30, marginTop: 15, textAlign: 'center'},
+  button: {color: Colors.white, fontSize: 20, fontFamily: 'Oswald-Bold', backgroundColor: Colors.purple500, 
+    borderRadius: 10, padding: 10, marginLeft: '10%', marginRight: '10%', marginTop: 15, textAlign: 'center'},
 
-  social: {flexDirection: 'row', justifyContent: 'space-evenly', padding: 10, marginTop: 70, 
-  borderWidth: 3, borderColor: Colors.purple800, backgroundColor: Colors.white, marginLeft: 30, 
-  marginRight: 30, borderRadius: 40},
+  social: {flexDirection: 'row', justifyContent: 'space-evenly', padding: 10, marginTop: 60, 
+  borderWidth: 3, borderColor: Colors.purple500, backgroundColor: Colors.white, marginLeft: '10%', 
+  marginRight: '10%', borderRadius: 40},
 
-  sign_in: { fontFamily: 'Oswald-Regular', fontSize: 20, textAlign: 'center', marginTop: 20, 
-    color: Colors.purple800, textDecorationLine: 'underline'},
+  sign_in: { fontFamily: 'Oswald-Regular', fontSize: 20, textAlign: 'center', marginTop: 10, 
+    color: Colors.purple500, textDecorationLine: 'underline'},
 
   icon: {height: 45, width: 45}
 })

@@ -9,7 +9,7 @@ export default function Title() {
     return(
         <View style={styles.centerView}>
             <Icon name="snake" style={styles.icon} size={30}/>
-            <Text style={styles.text} onPress={() => {Alert.alert('title pressed')}}>{title}</Text>
+            <Text style={styles.text}>{title}</Text>
         </View>
     )
 };

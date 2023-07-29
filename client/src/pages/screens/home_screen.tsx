@@ -1,19 +1,19 @@
-import React from 'react';
-import { Text, View} from 'react-native';
-import MainNavigator from './MainNavigator';
-import FloatingIcon from '../../components/FloatingIcon';
-import TopBar from '../../components/TopBar';
-import BottomBar from '../../components/BottomBar';
-import Content from '../../components/Content';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import FloatingIcon from '../../components/FloatingIcon'
+import Content from '../../components/Content'
 
 
 export default function HomeScreen() {
     return (
-        <View>
-            <TopBar/>
+        <View style={[styles.flex]}>
             <Content/>
-            <BottomBar/>
             <FloatingIcon/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    flex: {flex: 1, backgroundColor: 'white'},
+  });
+  
