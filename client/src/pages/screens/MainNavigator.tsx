@@ -3,14 +3,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import type {RouteProp, ParamListBase} from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
-//import {createDrawerNavigator} from '@react-navigation/drawer'
+import {createDrawerNavigator} from '@react-navigation/drawer'
 import HomeScreen from './home_screen'
 import PumpScreen from './pump_screen'
 import TempScreen from './temp_screen'
 import LampScreen from './lamp_screen'
 import HumidScreen from './humid_screen'
 
-//const Drawer = createBottomTabNavigator()
+const Drawer = createBottomTabNavigator()
 const Tab = createBottomTabNavigator()
 
 type TabBarIconProps = {

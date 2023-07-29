@@ -126,10 +126,12 @@ project.ext.react = [
 ]
 
 // also add this to force rebuild reanimated:
-project.ext.reanimated = [
-        buildFromSource: true
-]
+//7월 29일. 잠깐 CMAKE 빌드 오류가 떠서 해당 코드 비활성화
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); 
+/*project.ext.reanimated = [
+        buildFromSource: true
+]*/
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

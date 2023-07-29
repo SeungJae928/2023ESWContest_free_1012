@@ -18,4 +18,5 @@ const styles = StyleSheet.create({
     text: {fontSize: 20},
     content: {flex: 1, alignItems: 'center', justifyContent: 'center'}
 })
+
 export default DrawerContent
