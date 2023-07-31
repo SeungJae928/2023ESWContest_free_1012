@@ -80,6 +80,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
     }
     signingConfigs {
         debug {
@@ -101,6 +104,8 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    //packagingOptions { jniLibs { pickFirsts += ['**/libc++_shared.so', 'lib/**/libreanimated.so'] } }
+    //packagingOptions { pickFirst 'lib/arm64-v8a/libreanimated.so' }
 }
 
 dependencies {
@@ -128,8 +133,8 @@ project.ext.react = [
 // also add this to force rebuild reanimated:
 //7월 29일. 잠깐 CMAKE 빌드 오류가 떠서 해당 코드 비활성화
 
-/*project.ext.reanimated = [
-        buildFromSource: true
+/*project.ext.reanimated = [ 
+    buildFromSource: true 
 ]*/
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");

@@ -10,6 +10,7 @@ import Title from './src/components/Title'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Data from './src/data'
 import MainNavigator from './src/pages/screens/MainNavigator'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 const Stack = createStackNavigator()
 
@@ -22,23 +23,23 @@ export default function App(){
   }, []);
 
   return (
-
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false}}/>
-          <Stack.Screen name='Main' component={MainNavigator}
-            options={
-              {headerLeft: ()=>(<Image style={styles.image} source={{uri: User.profileImage}}/>),
-                headerTitle: () => (
-                <Title/>
-              ), headerStyle: {backgroundColor: Colors.purple500},
-              headerRight: () => (
-                <Icon name="menu" style={styles.icon} size={35} onPress={() => {Alert.alert('menu pressed.')}}/>
-              )}
-            }/>
-        </Stack.Navigator>
-      </NavigationContainer>
-
+    <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Login'>
+            <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false}}/>
+            <Stack.Screen name='Main' component={MainNavigator}
+              options={
+                {headerLeft: ()=>(<Image style={styles.image} source={{uri: User.profileImage}}/>),
+                  headerTitle: () => (
+                  <Title/>
+                ), headerStyle: {backgroundColor: Colors.purple500},
+                headerRight: () => (
+                  <Icon name="menu" style={styles.icon} size={35} onPress={() => {Alert.alert('menu pressed.')}}/>
+                )}
+              }/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
   );
 }
 

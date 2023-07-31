@@ -16,7 +16,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        //classpath("com.android.tools.build:gradle")
+        //7월 29일 빌드 오류 수정
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
+    
 }
+
