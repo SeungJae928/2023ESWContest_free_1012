@@ -10,7 +10,16 @@ import {
   } from "react-native-chart-kit";
 
 
-export default function Graph() {
+export const Graph = (props) => {
+    function parseInt(str: string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        let arr = parsedStr.split(',')
+        return arr
+    }
+
+    let tempData = parseInt(props.data)
+
     return(
         <View style={[styles.graph]}>
   <LineChart
@@ -20,12 +29,12 @@ export default function Graph() {
       datasets: [
         {
           data: [
-            Math.random() * 100,
-            Math.random() * 100,
-            Math.random() * 100,
-            Math.random() * 100,
-            Math.random() * 100,
-            Math.random() * 100
+              Number.parseInt(tempData[0]),
+              Number.parseInt(tempData[1]),
+              Number.parseInt(tempData[2]),
+              Number.parseInt(tempData[3]),
+              Number.parseInt(tempData[4]),
+              Number.parseInt(tempData[5])
           ]
         }
       ]

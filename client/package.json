@@ -21,5 +21,6 @@
   },
   "devDependencies": {
     "metro-config": "^0.77.0"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

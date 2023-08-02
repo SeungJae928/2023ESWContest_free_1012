@@ -2,13 +2,14 @@ import React from 'react';
 import { FC } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Alert} from 'react-native';
 import { MD2Colors as Colors } from 'react-native-paper';
-import Graph from './GraphTest';
+import {Graph} from './GraphTest';
 import * as Data from '../data';
 
 export type boxData = {
     boxName: string
     buttonName: string
     needGraph: boolean
+    graph_data?: string
     val1_name?: string
     val2_name?: string
     val3_name?: string
@@ -17,7 +18,7 @@ export type boxData = {
     val3?: string | number
 }
 
-export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, val1_name, val2_name, val3_name, val1, val2, val3}) => {
+export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, graph_data, val1_name, val2_name, val3_name, val1, val2, val3}) => {
     return (
         <View style={[styles.view]}>
             <View style={[styles.topbox]}>
@@ -27,7 +28,7 @@ export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, val1_name,
                     style={[styles.button]}>{buttonName}</Text>
             </View>
 
-            { needGraph && <Graph /> }
+            { needGraph && <Graph data={graph_data} /> }
                 
             <View style={[styles.bottombox]}>
                 <View style={[styles.valueArea]}>
