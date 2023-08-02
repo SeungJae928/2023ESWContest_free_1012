@@ -14,22 +14,31 @@ export const HomeComp: FC<values> = ({cage}) => {
 
     const Url = `http://10.0.2.2:8080`
 
-    const [temp, setTemp] = useState('')
     const [humid, setHumid] = useState('')
+    const [temp, setTemp] = useState('')
 
     useEffect(()=>{
         let timer = setInterval(() => {
             getTemp()
-        }, 5000)
+            getHumid()
+        }, 2000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    async function getTemp() {
-        await axios.get(Url + "/api/cage/getTemp")
+    function getTemp() {
+        axios.get(Url + "/api/cage/getTemp")
             .then((response) => {
-                let tempArr = JSON.stringify(response.data);
-                setTemp(tempArr)
-                console.log(temp)
+                setTemp(JSON.stringify(response.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    function getHumid() {
+        axios.get(Url + "/api/cage/getHumid")
+            .then((response) => {
+                setHumid(JSON.stringify(response.data))
             })
             .catch((error) => {
                 console.log(error)
@@ -44,7 +53,7 @@ export const HomeComp: FC<values> = ({cage}) => {
                 val3={cage.min_temp} val3_name='min temp'/>
 
             <ItemBox boxName='Humidity' buttonName='edit settings' 
-                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current humid'
+                needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'
                 val2={cage.max_temp} val2_name='max humid'
                 val3={cage.min_temp} val3_name='min humid'/>
 
