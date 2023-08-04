@@ -18,6 +18,6 @@ export default function Content() {
 
 const styles = StyleSheet.create({
     view: {
-        flex: 1
+        flex: 1, backgroundColor: Colors.grey100
     }
 })

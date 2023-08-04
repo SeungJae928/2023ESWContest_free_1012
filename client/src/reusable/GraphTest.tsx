@@ -37,7 +37,6 @@ export const Graph = (props) => {
     return(
         <View style={[styles.graph]}>
             { exist ? <LineChart
-
                 data={{
                     labels: ["January", "February", "March", "April", "May", "June"],
                     datasets: [
@@ -128,5 +127,5 @@ export const Graph = (props) => {
 }
 
 const styles = StyleSheet.create({
-  graph: {flex: 1, padding: 10}
+  graph: { margin: 10 }
 })
