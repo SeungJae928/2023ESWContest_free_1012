@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 

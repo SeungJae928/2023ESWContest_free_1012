@@ -11,6 +11,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Data from './src/data'
 import MainNavigator from './src/pages/screens/MainNavigator'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import Password from './src/pages/screens/sign_up_password'
+import Id from './src/pages/screens/sign_up_id'
+import Email from './src/pages/screens/sign_up_email'
 
 const Stack = createStackNavigator()
 
@@ -27,6 +30,9 @@ export default function App(){
         <NavigationContainer>
           <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false}}/>
+            <Stack.Screen name='SignUp_Password' component={Password} options={{headerShown: false}}/>
+            <Stack.Screen name='SignUp_ID' component={Id} options={{headerShown: false}}/>
+            <Stack.Screen name='SignUp_Email' component={Email} options={{headerShown: false}}/>
             <Stack.Screen name='Main' component={MainNavigator}
               options={
                 {headerLeft: ()=>(<Image style={styles.image} source={{uri: User.profileImage}}/>),

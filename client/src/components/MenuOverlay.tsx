@@ -1,7 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Alert} from 'react-native';
-import {MD2Colors as Colors} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {View, Text, StyleSheet } from 'react-native';
 
 const menuList = ["설정", "기타", "로그아웃"];
 

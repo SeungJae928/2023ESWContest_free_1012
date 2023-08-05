@@ -3,7 +3,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import type {RouteProp, ParamListBase} from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
-import {DrawerContent, createDrawerNavigator} from '@react-navigation/drawer'
 import TabNavigator from './TabNavigator'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 

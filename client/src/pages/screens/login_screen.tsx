@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { MD2Colors as Colors, Menu } from 'react-native-paper'
+import { MD2Colors as Colors } from 'react-native-paper'
 
 export default function LoginScreen({navigation}) {
   return (
@@ -14,13 +14,21 @@ export default function LoginScreen({navigation}) {
         <TextInput style={styles.textInput} placeholder="ID/EMAIL"/>
         <TextInput style={styles.textInput} placeholder="PASSWORD"/>
         <Text style={[styles.button]} onPress = {() => navigation.navigate('Main')}>Login</Text>
-        <Text style={[styles.sign_in]} onPress={() => {Alert.alert('Go to Sign in Page')}}>SIGN UP</Text>
+        <Text style={[styles.sign_in]} onPress = {() => navigation.navigate('SignUp_ID')}>SIGN UP</Text>
       </View>
 
       <View style={[styles.social]}>
-        <Image style={[styles.icon]} source={require('../../images/naver.png')}/>
-        <Image style={[styles.icon]} source={require('../../images/kakaotalk.png')}/>
-        <Image style={[styles.icon]} source={require('../../images/google.png')}/>
+        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+          <Image style={[styles.icon]} source={require('../../images/naver.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+          <Image style={[styles.icon]} source={require('../../images/kakaotalk.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+          <Image style={[styles.icon]} source={require('../../images/google.png')}/>
+        </TouchableOpacity>
       </View>
     </View>
   );

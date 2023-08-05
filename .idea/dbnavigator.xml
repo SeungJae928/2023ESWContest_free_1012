@@ -24,11 +24,12 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" object-ref="schemas/LHdatabase/tables/temperature" />
+      <object connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" object-ref="schemas/LHdatabase/tables/user" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.temperature" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.user" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.temperature_seq" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="sys.Data" active-filter-id="" />
     <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="performance_schema.accounts" active-filter-id="EMPTY_FILTER" />

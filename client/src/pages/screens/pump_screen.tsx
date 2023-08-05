@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native'
+import { Text, View, StyleSheet, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { MD2Colors as Colors, Menu } from 'react-native-paper'
+import { MD2Colors as Colors } from 'react-native-paper'
 
 export default function PumpScreen({navigation}) {
   return (
