@@ -15,15 +15,27 @@
     <connection id="ed4cb156-00c2-48cd-8107-8188b1e56c03">
       <console name="Connection" type="STANDARD" schema="sys" session="Main" />
     </connection>
+    <connection id="68c54ce9-efbc-45c2-8673-523717112d9e">
+      <console name="LH Database" type="STANDARD" schema="mysql" session="Main" />
+    </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" object-ref="schemas/LHdatabase/tables/user" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.temperature" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="68c54ce9-efbc-45c2-8673-523717112d9e" dataset="LHdatabase.temperature_seq" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="sys.Data" active-filter-id="" />
+    <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="performance_schema.accounts" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="performance_schema.table_io_waits_summary_by_table" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="sys.user" active-filter-id="" />
+    <filter-actions connection-id="ed4cb156-00c2-48cd-8107-8188b1e56c03" dataset="performance_schema.events_waits_summary_global_by_event_name" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -50,6 +62,92 @@
           <type value="USER" />
           <user value="root" />
           <deprecated-pwd value="" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <deprecated-proxy-pwd value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <ssl-settings>
+          <active value="false" />
+          <certificate-authority-file value="" />
+          <client-certificate-file value="" />
+          <client-key-file value="" />
+        </ssl-settings>
+        <details>
+          <charset value="UTF-8" />
+          <session-management value="true" />
+          <ddl-file-binding value="true" />
+          <database-logging value="true" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="false" />
+          <environment-type value="default" />
+          <connectivity-timeout value="30" />
+          <idle-time-to-disconnect value="30" />
+          <idle-time-to-disconnect-pool value="5" />
+          <credential-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
+          <object-type-filter>
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+      <connection id="68c54ce9-efbc-45c2-8673-523717112d9e" active="true" signed="true">
+        <database>
+          <name value="LH Database" />
+          <description value="" />
+          <database-type value="MYSQL" />
+          <config-type value="BASIC" />
+          <database-version value="8.0" />
+          <driver-source value="BUNDLED" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="DATABASE" />
+          <host value="lh-database.co1dsjjo1bam.ap-northeast-2.rds.amazonaws.com" />
+          <port value="3306" />
+          <database value="mysql" />
+          <tns-folder value="" />
+          <tns-profile value="" />
+          <type value="USER_PASSWORD" />
+          <user value="tmdwo928" />
+          <deprecated-pwd value="cmF0czgwMDU=" />
         </database>
         <properties>
           <auto-commit value="false" />

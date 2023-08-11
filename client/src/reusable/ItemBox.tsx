@@ -13,7 +13,7 @@ export type boxData = {
     val2_name?: string
     val3_name?: string
     val1?: string | number 
-    val2?: string | number 
+    val2?: string | number
     val3?: string | number
 }
 
@@ -55,12 +55,12 @@ export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, val1_name,
 }
 
 const styles = StyleSheet.create({
-    view: {flexDirection: 'column', backgroundColor: Colors.grey300},
-    topbox: {flexDirection: 'row', padding: 10, backgroundColor: Colors.grey400},
-    name: {flex: 1, textAlign: 'left', fontSize: 35, fontFamily: 'Oswald-Bold', color: Colors.black},
-    bottombox: {backgroundColor: Colors.grey800, flexDirection: 'row', padding: 10, justifyContent:'space-between'},
-    button: {flex: 0.3, backgroundColor: Colors.black, color: Colors.white, 
-        borderRadius: 10, fontFamily: 'Oswald-Bold', textAlign: 'center', padding: 5, height: 40, marginTop: 15},
+    view: {flexDirection: 'column', backgroundColor: Colors.grey300, margin: 10, borderRadius: 20, shadowRadius: 4, elevation: 5},
+    topbox: {flexDirection: 'row', padding: 10, backgroundColor: Colors.grey400, borderTopLeftRadius: 20, borderTopRightRadius: 20},
+    name: {flex: 1, textAlign: 'left', fontSize: 30, fontFamily: 'Oswald-Bold', color: Colors.black, marginLeft: 5},
+    bottombox: {backgroundColor: Colors.grey800, flexDirection: 'row', padding: 10, justifyContent:'space-between', borderBottomLeftRadius: 20, borderBottomRightRadius: 20},
+    button: {flex: 0.4, backgroundColor: Colors.black, color: Colors.white, 
+        borderRadius: 10, fontFamily: 'Oswald-Bold', textAlign: 'center', padding: 5, height: 40, marginTop: 5, fontSize: 15},
     valueArea: {flexDirection: 'column', flex: 1},
     valName: {color: Colors.white, fontSize: 20, fontFamily: 'Oswald-Bold', textAlign: 'center'},
     val: {color: Colors.white, fontSize: 40, fontFamily: 'Oswald-Bold', textAlign: 'center'}
