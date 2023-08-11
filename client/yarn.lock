@@ -4668,7 +4668,6 @@ react-native-chart-kit@^6.12.0:
     paths-js "^0.4.10"
     point-in-polygon "^1.0.1"
 
-<<<<<<< HEAD
 react-native-cli@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/react-native-cli/-/react-native-cli-2.0.1.tgz"
@@ -4678,12 +4677,10 @@ react-native-cli@^2.0.1:
     minimist "^1.2.0"
     prompt "^0.2.14"
     semver "^5.0.3"
-=======
 react-native-config@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.1.tgz"
   integrity sha512-g1xNgt1tV95FCX+iWz6YJonxXkQX0GdD3fB8xQtR1GUBEqweB9zMROW77gi2TygmYmUkBI7LU4pES+zcTyK4HA==
->>>>>>> react_branch
 
 react-native-paper@^5.9.1:
   version "5.9.1"
