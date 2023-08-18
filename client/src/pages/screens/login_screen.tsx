@@ -1,8 +1,14 @@
-import { Text, View, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import {Text, View, StyleSheet, TextInput, Image, TouchableOpacity, Linking} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
+import {KakaoOAuthToken, login, loginWithKakaoAccount} from "@react-native-seoul/kakao-login";
 
 export default function LoginScreen({navigation}) {
+
+  const signInWithKakao = async (): Promise<void> => {
+    const token: KakaoOAuthToken = await loginWithKakaoAccount();
+  }
+
   return (
     <View style={[styles.view]}>
       <View>
@@ -18,15 +24,15 @@ export default function LoginScreen({navigation}) {
       </View>
 
       <View style={[styles.social]}>
-        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+        <TouchableOpacity onPress = {()=> Linking.openURL("https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=30PnYBKZcmQNaYFnLTfp&state=asd&redirect_uri=http://localhost:8080/login/oauth2/code/naver")}>
           <Image style={[styles.icon]} source={require('../../images/naver.png')}/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+        <TouchableOpacity onPress = {()=> signInWithKakao()}>
           <Image style={[styles.icon]} source={require('../../images/kakaotalk.png')}/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress = {()=>navigation.navigate('SignUp_Password')}>
+        <TouchableOpacity onPress = {()=> Linking.openURL('https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code&client_id=560377445427-57jr939gh7a4n42ikodqenu27gh1uut2.apps.googleusercontent.com&redirect_uri=http://www.rats-lh.com:8080/login/oauth2/code/google')}>
           <Image style={[styles.icon]} source={require('../../images/google.png')}/>
         </TouchableOpacity>
       </View>

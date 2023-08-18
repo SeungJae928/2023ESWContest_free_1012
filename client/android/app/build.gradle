@@ -123,6 +123,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation "com.kakao.sdk:v2-user:2.15.0"
 }
 
 project.ext.react = [
