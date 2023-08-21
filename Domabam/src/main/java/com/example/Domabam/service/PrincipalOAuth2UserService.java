@@ -1,5 +1,6 @@
 package com.example.Domabam.service;
 
+import com.example.Domabam.domain.Provider;
 import com.example.Domabam.domain.Role;
 import com.example.Domabam.domain.User;
 import com.example.Domabam.oauth2.*;
@@ -67,7 +68,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
                     .password(password)
                     .email(email)
                     .role(role)
-                    .provider(provider)
+                    .provider(Provider.KAKAO)
                     .provider_id(providerId)
                     .createDate(create_date)
                     .build();

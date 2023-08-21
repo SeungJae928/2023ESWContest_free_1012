@@ -70,3 +70,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+app:
+  auth:
+    tokenSecret: asg13g13g13g1g31g13gdgrw23453ghhgrg498job7j45678j48746846740906890j83895bn39nb59g490n520934589n73g45983750n17659834=09671n47v-187v93847u1i4b9813h9g48h31g
+    tokenExpiry: 2135125125

@@ -33,8 +33,9 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "provider")
-    private String provider;
+    private Provider provider;
 
     @Column(name = "provider_id")
     private String provider_id;
@@ -43,7 +44,7 @@ public class User {
     private LocalDateTime create_date;
 
     @Builder
-    public User(String name, String password, String email, Role role, String provider, String provider_id, LocalDateTime createDate){
+    public User(String name, String password, String email, Role role, Provider provider, String provider_id, LocalDateTime createDate){
         this.name = name;
         this.password = password;
         this.email = email;

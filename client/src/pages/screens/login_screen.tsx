@@ -2,11 +2,20 @@ import {Text, View, StyleSheet, TextInput, Image, TouchableOpacity, Linking} fro
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
 import {KakaoOAuthToken, login, loginWithKakaoAccount} from "@react-native-seoul/kakao-login";
+import axios from "axios";
 
 export default function LoginScreen({navigation}) {
 
+  const Url = "http://localhost:8080"
+
   const signInWithKakao = async (): Promise<void> => {
-    const token: KakaoOAuthToken = await loginWithKakaoAccount();
+    const accessToken: KakaoOAuthToken = await loginWithKakaoAccount();
+    try {
+      const res = await axios.post(Url + "/auth/kakao", accessToken);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   return (

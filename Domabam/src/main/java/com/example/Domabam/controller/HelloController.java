@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +18,6 @@ import java.util.Random;
 
 @Tag(name = "hello", description = "Hello Swagger")
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class HelloController {
 
     @AllArgsConstructor
