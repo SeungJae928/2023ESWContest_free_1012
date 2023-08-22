@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class KakaoAuthService {
@@ -23,7 +25,7 @@ public class KakaoAuthService {
     private final AuthTokenProvider authTokenProvider;
 
     @Transactional
-    public AuthResponseDTO login(AuthRequestDTO authRequest) {
+    public AuthResponseDTO login(AuthRequestDTO authRequest) throws IOException {
         User kakaoUser = clientKakao.getUserData(authRequest.getAccessToken());
         String provider_id = kakaoUser.getProvider_id();
         User user = jpaUserRepository.findByProviderID(provider_id);

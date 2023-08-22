@@ -25,13 +25,13 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(@NotNull HttpSecurity http) throws Exception {
-        JwtAuthenticationFilter jwtAuthFilter = new JwtAuthenticationFilter(authTokenProvider);
 
         http
+                .httpBasic().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                .requestMatchers("/auth/**").permitAll() // 해당 경로는 인증 없이 접근 가능
-                .anyRequest().authenticated().and() // 인증 안되면 사용 모담
+                .requestMatchers("/auth/**", "/api/**").permitAll() // 해당 경로는 인증 없이 접근 가능
+                .requestMatchers("/").authenticated().and() // 인증 안되면 사용 모담
                 .headers()
                 .frameOptions()
                 .sameOrigin().and()
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(authTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

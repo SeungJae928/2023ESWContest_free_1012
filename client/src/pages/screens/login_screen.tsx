@@ -6,16 +6,18 @@ import axios from "axios";
 
 export default function LoginScreen({navigation}) {
 
-  const Url = "http://localhost:8080"
+  const Url = "http://10.0.2.2:8080"
 
   const signInWithKakao = async (): Promise<void> => {
     const accessToken: KakaoOAuthToken = await loginWithKakaoAccount();
-    try {
-      const res = await axios.post(Url + "/auth/kakao", accessToken);
-    }
-    catch (e) {
-      console.log(e);
-    }
+    const res = await axios.post(Url + "/auth/kakao", accessToken, {headers: { "User-Agent": "Mozilla/5.0" }})
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((e) => {
+          console.log(e)
+        });
+
   }
 
   return (

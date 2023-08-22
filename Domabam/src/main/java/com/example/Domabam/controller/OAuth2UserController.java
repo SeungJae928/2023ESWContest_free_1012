@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @Tag(name = "OAuth2UserAPI", description = "OAuth2와 Spring Security를 이용한 소셜 로그인 API")
 @RestController
 @Slf4j
@@ -31,8 +33,9 @@ public class OAuth2UserController {
     private final AuthService authService;
 
     // 카카오 로그인
-    @PostMapping(value = "/kakao")
-    public ResponseEntity<AuthResponseDTO> kakaoAuthRequest(@RequestBody AuthRequestDTO authRequest){
+    @PostMapping(value = "/kakao", produces ="application/json; charset=utf8")
+    public ResponseEntity<AuthResponseDTO> kakaoAuthRequest(@RequestBody AuthRequestDTO authRequest) throws IOException {
+        System.out.println(authRequest.getAccessToken());
         return ApiResponseDTO.success(kakaoAuthService.login(authRequest));
     }
 

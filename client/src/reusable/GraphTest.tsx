@@ -42,18 +42,18 @@ export const Graph = (props) => {
                     datasets: [
                         {
                             data: [
-                                // Number.parseInt(cageData[0]),
-                                // Number.parseInt(cageData[1]),
-                                // Number.parseInt(cageData[2]),
-                                // Number.parseInt(cageData[3]),
-                                // Number.parseInt(cageData[4]),
-                                // Number.parseInt(cageData[5])
-                                0,
-                                0,
-                                0,
-                                0,
-                                0,
-                                0
+                                Number.parseInt(cageData[0]),
+                                Number.parseInt(cageData[1]),
+                                Number.parseInt(cageData[2]),
+                                Number.parseInt(cageData[3]),
+                                Number.parseInt(cageData[4]),
+                                Number.parseInt(cageData[5])
+                                // 0,
+                                // 0,
+                                // 0,
+                                // 0,
+                                // 0,
+                                // 0
                             ]
                         }
                     ]
