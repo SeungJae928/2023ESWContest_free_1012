@@ -7,11 +7,6 @@ import * as Data from '../data';
 const arr_home_comp : Data.CData = Data.createCage()
 
 const Content = ({props}) => {
-    useEffect(()=>{
-        console.log("Content :" + props)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     return(
         <ScrollView style={styles.view}>
             <HomeComp cage = {arr_home_comp} props={props}/>

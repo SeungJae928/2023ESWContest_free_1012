@@ -23,14 +23,26 @@ export const HomeComp: FC<values> = ({cage, props}) => {
 
     const [humid, setHumid] = useState('')
     const [temp, setTemp] = useState('')
+    const [maxTemp, setMaxTemp] = useState('')
+    const [maxHumid, setMaxHumid] = useState('')
+    const [minTemp, setMinTemp] = useState('')
+    const [minHumid, setMinHumid] = useState('')
+    const [currentTemp, setCurrentTemp] = useState('')
+    const [currentHumid, setCurrentHumid] = useState('')
 
     useEffect(()=>{
         let timer = setInterval(() => {
             getTemp()
             getHumid()
+            setMaxTemp(getMaxData(temp))
+            setMaxHumid(getMaxData(humid))
+            setMinTemp(getMinData(temp))
+            setMinHumid(getMinData(humid))
+            setCurrentTemp(getCurrentData(temp))
+            setCurrentHumid(getCurrentData(humid))
         }, 2000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [temp, humid])
 
     function getTemp() {
         axios.post(Url + "/api/cage/getTemp", {
@@ -58,14 +70,36 @@ export const HomeComp: FC<values> = ({cage, props}) => {
             })
     }
 
+    function getMaxData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return Math.max(...arr)
+    }
 
+    function getMinData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return Math.min(...arr)
+    }
+
+    function getCurrentData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return arr[arr.length - 1]
+    }
 
     return (
         <View>
             <ItemBox boxName='Temperature' buttonName='edit settings'
-                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current temp'
-                val2={cage.max_temp} val2_name='max temp'
-                val3={cage.min_temp} val3_name='min temp'/>
+                needGraph = {true} graph_data={temp} val1={currentTemp} val1_name='current temp'
+                val2={maxTemp} val2_name='max temp'
+                val3={minTemp} val3_name='min temp'/>
 
             <ItemBox boxName='Humidity' buttonName='edit settings' 
                 needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'
