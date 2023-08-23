@@ -1,16 +1,20 @@
 package com.example.Domabam.controller;
 
+import com.example.Domabam.domain.Cage;
 import com.example.Domabam.domain.Humidity;
 import com.example.Domabam.domain.Temperature;
+import com.example.Domabam.dto.ApiResponseDTO;
+import com.example.Domabam.dto.CageDataDTO;
+import com.example.Domabam.dto.UserDataDTO;
 import com.example.Domabam.repository.JPAHumidRepository;
 import com.example.Domabam.repository.JPATempRepository;
 import com.example.Domabam.service.CageService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -18,6 +22,7 @@ import java.util.List;
 
 @Tag(name = "manage Cage Data", description = "사육장 데이터 관리")
 @RestController
+@RequestMapping(value = "/api/cage")
 @CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class CageController {
 
@@ -32,54 +37,73 @@ public class CageController {
 
     @Operation(summary = "insert Temp Data", description = "온도 데이터 입력")
     @ApiResponse(responseCode = "200", description = "성공")
-    @PutMapping("/api/cage/insertTemp")
+    @PutMapping("/insertTemp")
     public void insertTemp(@RequestParam Integer temp) {
         Temperature temperature = new Temperature();
         temperature.setTemp(temp);
         temperature.setId(Long.parseLong("100"));
-        temperature.setUserID(Long.parseLong("2"));
+        temperature.setCage_id(Long.parseLong("2"));
         temperature.setObtained_time(LocalDateTime.now());
         jpaTempRepository.save(temperature);
     }
 
     @Operation(summary = "delete Oldest Temp Data", description = "오래된 온도 데이터 삭제")
     @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/api/cage/deleteOldestTemp")
+    @GetMapping("/deleteOldestTemp")
     public void deleteTemp() {
-        jpaTempRepository.deleteByUserid(Long.parseLong("2"));
+        jpaTempRepository.deleteByCageID(Long.parseLong("2"));
     }
 
     @Operation(summary = "get Temp Data", description = "userId를 통해 온도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/api/cage/getTemp")
-    public List<Integer> getTemp() {
-        return cageService.getTempData(Long.parseLong("2"));
+    @PostMapping("/getTemp")
+    @JsonProperty("userDataDTO")
+    @ResponseBody
+    public List<Integer> getTemp(@RequestBody UserDataDTO userDataDTO) {
+        return cageService.getTempData(userDataDTO.getId());
     }
 
     @Operation(summary = "insert Humid Data", description = "습도 데이터 입력")
     @ApiResponse(responseCode = "200", description = "성공")
-    @PutMapping("/api/cage/insertHumid")
+    @PutMapping("/insertHumid")
     public void insertHumid(@RequestParam Integer humid) {
         Humidity humidity = new Humidity();
         humidity.setHumid(humid);
         humidity.setId(Long.parseLong("100"));
-        humidity.setUserID(Long.parseLong("2"));
+        humidity.setCage_id(Long.parseLong("2"));
         humidity.setObtained_time(LocalDateTime.now());
         jpaHumidRepository.save(humidity);
     }
 
     @Operation(summary = "delete Oldest Humid Data", description = "오래된 습도 데이터 삭제")
     @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/api/cage/deleteOldestHumid")
+    @GetMapping("/deleteOldestHumid")
     public void deleteHumid() {
-        jpaHumidRepository.deleteByUserid(Long.parseLong("2"));
+        jpaHumidRepository.deleteByCageID(Long.parseLong("2"));
     }
 
     @Operation(summary = "get Humid Data", description = "userId를 통해 습도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/api/cage/getHumid")
-    public List<Integer> getHumid() {
-        return cageService.getHumidData(Long.parseLong("2"));
+    @PostMapping("/getHumid")
+    @ResponseBody
+    @JsonProperty("userDataDTO")
+    public List<Integer> getHumid(@RequestBody UserDataDTO userDataDTO) {
+        return cageService.getHumidData(userDataDTO.getId());
+    }
+
+    @Operation(summary = "create New Cage", description = "새 사육장 등록")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping(value = "/createCage")
+    public ResponseEntity<Cage> createCage(@RequestBody CageDataDTO cageDataDTO) {
+        return ApiResponseDTO.success(cageService.createCage(cageDataDTO));
+    }
+
+    @Operation(summary = "get Cage Data", description = "사육장 정보 가져오기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/getCageData")
+    public ResponseEntity<Cage> getCageData(@RequestBody UserDataDTO userDataDTO) {
+        System.out.println(userDataDTO.getId());
+        return ApiResponseDTO.success(cageService.getCage(userDataDTO.getId()));
     }
 
 }

@@ -29,7 +29,7 @@ public class AuthService {
 
         String socialId = claims.getSubject();
 
-        AuthToken newAppToken = authTokenProvider.createUserAppToken(socialId);
+        AuthToken newAppToken = authTokenProvider.createUserAppToken(Long.valueOf(socialId));
 
         return AuthResponseDTO.builder()
                 .appToken(newAppToken.getToken())
@@ -45,7 +45,7 @@ public class AuthService {
         }
 
         try {
-            User user =  jpaUserRepository.findByProviderID(claims.getSubject());
+            User user =  jpaUserRepository.findById_(Long.valueOf(claims.getSubject()));
             return user.getId();
 
         } catch (NullPointerException e) {

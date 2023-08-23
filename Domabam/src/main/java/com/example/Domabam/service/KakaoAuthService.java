@@ -27,10 +27,10 @@ public class KakaoAuthService {
     @Transactional
     public AuthResponseDTO login(AuthRequestDTO authRequest) throws IOException {
         User kakaoUser = clientKakao.getUserData(authRequest.getAccessToken());
-        String provider_id = kakaoUser.getProvider_id();
-        User user = jpaUserRepository.findByProviderID(provider_id);
+        Long id = kakaoUser.getId();
+        User user = jpaUserRepository.findById_(id);
 
-        AuthToken authToken = authTokenProvider.createUserAppToken(provider_id);
+        AuthToken authToken = authTokenProvider.createUserAppToken(id);
 
         if (user == null) {
             jpaUserRepository.save(kakaoUser);

@@ -15,14 +15,12 @@ import java.util.List;
 public interface JPAHumidRepository extends JpaRepository<Humidity, Long> {
 
     @Transactional
-    @Query(value = "SELECT h.humidity FROM humidity h WHERE h.userID = :userId", nativeQuery = true)
-    List<Integer> findHumidByUserID(Long userId);
-
-    List<Humidity> findByUserID(Long userId);
+    @Query(value = "SELECT h.humidity FROM humidity h WHERE h.cage_id = :cage_id", nativeQuery = true)
+    List<Integer> findHumidByCageID(Long cage_id);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM humidity h WHERE h.userID = :userId ORDER BY h.obtained_time ASC limit 1", nativeQuery = true)
-    void deleteByUserid(@Param(value = "userId") Long userId);
+    @Query(value = "DELETE FROM humidity h WHERE h.cage_id = :cage_id ORDER BY h.obtained_time ASC limit 1", nativeQuery = true)
+    void deleteByCageID(@Param(value = "cage_id") Long cage_id);
 
 }

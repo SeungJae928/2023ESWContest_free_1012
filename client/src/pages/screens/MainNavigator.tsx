@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import type {RouteProp, ParamListBase} from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -38,14 +38,16 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
     }
 }
 
-export default function MainNavigator() {
+const MainNavigator = ({route}) => {
     return (
         /*<Drawer.Navigator
             screenOptions={{headerShown: false}}>
             <Drawer.Screen name="Tab" component={TabNavigator} />
         </Drawer.Navigator>*/
         <SafeAreaProvider>
-            <TabNavigator/>
+            <TabNavigator props={route.params.userToken}/>
         </SafeAreaProvider>
     )
 }
+
+export default MainNavigator

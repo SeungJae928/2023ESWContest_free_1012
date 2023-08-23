@@ -60,7 +60,6 @@ public class ClientKakao implements ClientProxy{
 
             //결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
 
             //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -70,13 +69,12 @@ public class ClientKakao implements ClientProxy{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             //Gson 라이브러리로 JSON파싱
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            String id = element.getAsJsonObject().get("id").getAsString();
+            Long id = element.getAsJsonObject().get("id").getAsLong();
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             String email = "";
             String name = element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
@@ -85,18 +83,14 @@ public class ClientKakao implements ClientProxy{
                 email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
             }
 
-            System.out.println("id : " + id);
-            System.out.println("한글 테스트");
-            System.out.println(element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString());
-
             br.close();
 
             return User.builder()
-                    .provider_id(id)
+                    .id(id)
                     .role(Role.USER)
                     .name(name)
                     .password("Test")
-                    .createDate(LocalDateTime.now())
+                    .create_date(LocalDateTime.now())
                     .email(email)
                     .provider(Provider.KAKAO)
                     .build();

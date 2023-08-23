@@ -6,16 +6,20 @@ import * as Data from '../data';
 import { ItemBox } from './ItemBox';
 import { MD2Colors as Colors } from 'react-native-paper';
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export type values = {
     cage : Data.CData
 }
 
-export const HomeComp: FC<values> = ({cage}) => {
+export const HomeComp: FC<values> = ({cage, props}) => {
     const [lamp, setLamp] = useState(
         cage.lampOn ? 'On' : 'Off'
     );
     const Url = `http://10.0.2.2:8080`
+
+    // @ts-ignore
+    const userId = parseInt(JSON.stringify(jwtDecode(props).sub).replace("\"", ""))
 
     const [humid, setHumid] = useState('')
     const [temp, setTemp] = useState('')
@@ -29,7 +33,10 @@ export const HomeComp: FC<values> = ({cage}) => {
     }, [])
 
     function getTemp() {
-        axios.get(Url + "/api/cage/getTemp")
+        axios.post(Url + "/api/cage/getTemp", {
+            id: userId,
+            name: ""
+        })
             .then((response) => {
                 setTemp(JSON.stringify(response.data))
             })
@@ -39,7 +46,10 @@ export const HomeComp: FC<values> = ({cage}) => {
     }
 
     function getHumid() {
-        axios.get(Url + "/api/cage/getHumid")
+        axios.post(Url + "/api/cage/getHumid", {
+            id: userId,
+            name: ""
+        })
             .then((response) => {
                 setHumid(JSON.stringify(response.data))
             })
@@ -47,6 +57,8 @@ export const HomeComp: FC<values> = ({cage}) => {
                 console.log(error)
             })
     }
+
+
 
     return (
         <View>

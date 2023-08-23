@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
 import {KakaoOAuthToken, login, loginWithKakaoAccount} from "@react-native-seoul/kakao-login";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export default function LoginScreen({navigation}) {
 
@@ -12,7 +13,7 @@ export default function LoginScreen({navigation}) {
     const accessToken: KakaoOAuthToken = await loginWithKakaoAccount();
     const res = await axios.post(Url + "/auth/kakao", accessToken, {headers: { "User-Agent": "Mozilla/5.0" }})
         .then((response) => {
-          console.log(response.data)
+          navigation.navigate('Main', {userToken : response.data.appToken})
         })
         .catch((e) => {
           console.log(e)

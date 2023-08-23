@@ -34,12 +34,12 @@ public class AuthTokenProvider {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public AuthToken createToken(String id, Role roleType, String expiry) { // 추후 roleType 추가 시 interface 역할 하기 위해 생성
+    public AuthToken createToken(Long id, Role roleType, String expiry) { // 추후 roleType 추가 시 interface 역할 하기 위해 생성
         Date expiryDate = getExpiryDate(expiry);
         return new AuthToken(id, roleType, expiryDate, key);
     }
 
-    public AuthToken createUserAppToken(String id) { // USER에 대한 AccessToken(AppToken) 생성
+    public AuthToken createUserAppToken(Long id) { // USER에 대한 AccessToken(AppToken) 생성
         return createToken(id, Role.USER, expiry);
     }
 

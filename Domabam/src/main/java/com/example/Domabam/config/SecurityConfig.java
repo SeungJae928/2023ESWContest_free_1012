@@ -30,8 +30,12 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                .requestMatchers("/auth/**", "/api/**").permitAll() // 해당 경로는 인증 없이 접근 가능
-                .requestMatchers("/").authenticated().and() // 인증 안되면 사용 모담
+                .requestMatchers("/auth/**",
+                        "/api/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**").permitAll() // 해당 경로는 인증 없이 접근 가능
+                .anyRequest().permitAll().and() // 인증 안되면 사용 모담
                 .headers()
                 .frameOptions()
                 .sameOrigin().and()
