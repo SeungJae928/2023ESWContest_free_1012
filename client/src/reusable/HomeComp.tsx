@@ -7,6 +7,7 @@ import { ItemBox } from './ItemBox';
 import { MD2Colors as Colors } from 'react-native-paper';
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { useQuery } from "react-query";
 
 export type values = {
     cage : Data.CData
@@ -30,6 +31,21 @@ export const HomeComp: FC<values> = ({cage, props}) => {
     const [currentTemp, setCurrentTemp] = useState('')
     const [currentHumid, setCurrentHumid] = useState('')
 
+    // const { isLoading, isError, data, error } = useQuery()
+
+    // 메인 접속시 최초 사육장 데이터 로드
+    useEffect(() => {
+        getTemp()
+        getHumid()
+        setMaxTemp(getMaxData(temp))
+        setMaxHumid(getMaxData(humid))
+        setMinTemp(getMinData(temp))
+        setMinHumid(getMinData(humid))
+        setCurrentTemp(getCurrentData(temp))
+        setCurrentHumid(getCurrentData(humid))
+    }, [])
+
+    // 60초 주기로 사육장 데이터 갱신
     useEffect(()=>{
         let timer = setInterval(() => {
             getTemp()
@@ -40,9 +56,12 @@ export const HomeComp: FC<values> = ({cage, props}) => {
             setMinHumid(getMinData(humid))
             setCurrentTemp(getCurrentData(temp))
             setCurrentHumid(getCurrentData(humid))
-        }, 2000)
+            console.log("updatae data!")
+        }, 60000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [temp, humid])
+    }, [])
+
+    useQuery
 
     function getTemp() {
         axios.post(Url + "/api/cage/getTemp", {
@@ -97,9 +116,9 @@ export const HomeComp: FC<values> = ({cage, props}) => {
     return (
         <View>
             <ItemBox boxName='Temperature' buttonName='edit settings'
-                needGraph = {true} graph_data={temp} val1={currentTemp} val1_name='current temp'
-                val2={maxTemp} val2_name='max temp'
-                val3={minTemp} val3_name='min temp'/>
+                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current temp'
+                val2={cage.max_temp} val2_name='max temp'
+                val3={cage.min_temp} val3_name='min temp'/>
 
             <ItemBox boxName='Humidity' buttonName='edit settings' 
                 needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'

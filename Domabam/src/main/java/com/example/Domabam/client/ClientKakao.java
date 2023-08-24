@@ -28,25 +28,6 @@ public class ClientKakao implements ClientProxy{
 
     @Override
     public User getUserData(String accessToken) throws IOException {
-//        KakaoUserDTO kakaoUserDTO = webClient.get()
-//                .uri("https://kapi.kakao.com/v2/user/me")
-//                .headers(h -> h.setBearerAuth(accessToken))
-//                .retrieve()
-//                .onStatus(HttpStatusCode::is4xxClientError, response -> Mono.error(new TokenValidFailedException("Social Access Token is unauthorized")))
-//                .onStatus(HttpStatusCode::is5xxServerError, response -> Mono.error(new TokenValidFailedException("Internal Server Error")))
-//                .bodyToMono(KakaoUserDTO.class)
-//                .block();
-//
-//        return User.builder()
-//                .provider_id(String.valueOf(kakaoUserDTO.getId()))
-//                .name(kakaoUserDTO.getProperties().getName())
-//                .email(kakaoUserDTO.getKakaoAccount().getEmail())
-//                .role(Role.USER)
-//                .createDate(LocalDateTime.now())
-//                .provider(Provider.KAKAO)
-//                .password("Test")
-//                .provider_id(null)
-//                .build();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
 
         //access_token을 이용하여 사용자 정보 조회

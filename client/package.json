@@ -32,7 +32,8 @@
     "react-native-screens": "^3.22.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.10.0",
-    "react-native-vector-icons": "^10.0.0"
+    "react-native-vector-icons": "^10.0.0",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@react-navigation/drawer": "^6.6.3",

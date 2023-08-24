@@ -1,6 +1,7 @@
 package com.example.Domabam.repository;
 
 import com.example.Domabam.domain.Cage;
+import com.example.Domabam.domain.CageInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

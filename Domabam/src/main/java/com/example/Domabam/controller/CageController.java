@@ -1,11 +1,10 @@
 package com.example.Domabam.controller;
 
 import com.example.Domabam.domain.Cage;
+import com.example.Domabam.domain.CageInfo;
 import com.example.Domabam.domain.Humidity;
 import com.example.Domabam.domain.Temperature;
-import com.example.Domabam.dto.ApiResponseDTO;
-import com.example.Domabam.dto.CageDataDTO;
-import com.example.Domabam.dto.UserDataDTO;
+import com.example.Domabam.dto.*;
 import com.example.Domabam.repository.JPAHumidRepository;
 import com.example.Domabam.repository.JPATempRepository;
 import com.example.Domabam.service.CageService;
@@ -47,12 +46,12 @@ public class CageController {
         jpaTempRepository.save(temperature);
     }
 
-    @Operation(summary = "delete Oldest Temp Data", description = "오래된 온도 데이터 삭제")
-    @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/deleteOldestTemp")
-    public void deleteTemp() {
-        jpaTempRepository.deleteByCageID(Long.parseLong("2"));
-    }
+//    @Operation(summary = "delete Oldest Temp Data", description = "오래된 온도 데이터 삭제")
+//    @ApiResponse(responseCode = "200", description = "성공")
+//    @GetMapping("/deleteOldestTemp")
+//    public void deleteTemp() {
+//        jpaTempRepository.deleteByCageID(Long.parseLong("2"));
+//    }
 
     @Operation(summary = "get Temp Data", description = "userId를 통해 온도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
@@ -75,12 +74,12 @@ public class CageController {
         jpaHumidRepository.save(humidity);
     }
 
-    @Operation(summary = "delete Oldest Humid Data", description = "오래된 습도 데이터 삭제")
-    @ApiResponse(responseCode = "200", description = "성공")
-    @GetMapping("/deleteOldestHumid")
-    public void deleteHumid() {
-        jpaHumidRepository.deleteByCageID(Long.parseLong("2"));
-    }
+//    @Operation(summary = "delete Oldest Humid Data", description = "오래된 습도 데이터 삭제")
+//    @ApiResponse(responseCode = "200", description = "성공")
+//    @GetMapping("/deleteOldestHumid")
+//    public void deleteHumid() {
+//        jpaHumidRepository.deleteByCageID(Long.parseLong("2"));
+//    }
 
     @Operation(summary = "get Humid Data", description = "userId를 통해 습도값 얻기")
     @ApiResponse(responseCode = "200", description = "성공")
@@ -102,8 +101,49 @@ public class CageController {
     @ApiResponse(responseCode = "200", description = "성공")
     @PostMapping("/getCageData")
     public ResponseEntity<Cage> getCageData(@RequestBody UserDataDTO userDataDTO) {
-        System.out.println(userDataDTO.getId());
         return ApiResponseDTO.success(cageService.getCage(userDataDTO.getId()));
     }
 
+    // 추후 사용
+//    @Operation(summary = "set Cage Data", description = "사육장 정보 저장하기")
+//    @ApiResponse(responseCode = "200", description = "성공")
+//    @PostMapping("/setCageData")
+//    public ResponseEntity<CageInfo> setCageData(@RequestBody CageInfoDTO cageInfoDTO) {
+//        return ApiResponseDTO.success(cageService.setCageInfo(cageInfoDTO));
+//    }
+
+    @Operation(summary = "set Cage Temp Data", description = "사육장 온도 정보 설정하기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/setTargetTemp")
+    public ResponseEntity<CageInfo> setCageTemp(@RequestBody TargetValueDTO targetValueDTO) {
+        return ApiResponseDTO.success(cageService.setTargetTemp(targetValueDTO));
+    }
+
+    @Operation(summary = "set Cage Humid Data", description = "사육장 습도 정보 설정하기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/setTargetHumid")
+    public ResponseEntity<CageInfo> setCageHumid(@RequestBody TargetValueDTO targetValueDTO) {
+        return ApiResponseDTO.success(cageService.setTargetHumid(targetValueDTO));
+    }
+
+    @Operation(summary = "set Cage Heater State", description = "사육장 히터 상태 설정하기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/setHeaterState")
+    public ResponseEntity<CageInfo> setHeaterState(@RequestBody OnOffDTO onOffDTO) {
+        return ApiResponseDTO.success(cageService.setHeaterState(onOffDTO));
+    }
+
+    @Operation(summary = "set Cage Lamp State", description = "사육장 조명 상태 설정하기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/setLampState")
+    public ResponseEntity<CageInfo> setLampState(@RequestBody OnOffDTO onOffDTO) {
+        return ApiResponseDTO.success(cageService.setLampState(onOffDTO));
+    }
+
+    @Operation(summary = "set Cage Pump State", description = "사육장 펌프 상태 설정하기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/setLampState")
+    public ResponseEntity<CageInfo> setPumpState(@RequestBody OnOffDTO onOffDTO) {
+        return ApiResponseDTO.success(cageService.setPumpState(onOffDTO));
+    }
 }

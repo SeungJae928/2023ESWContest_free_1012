@@ -2,7 +2,10 @@ import { Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors, Menu } from 'react-native-paper'
 
-export default function PumpScreen({navigation}) {
+export default function HumidScreen({navigation}) {
+
+  
+
   return (
     <View style={[styles.view]}>
       <View>
