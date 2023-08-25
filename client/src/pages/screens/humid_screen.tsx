@@ -1,10 +1,28 @@
 import { Text, View, StyleSheet, TextInput, Alert, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors, Menu } from 'react-native-paper'
+import axios from "axios";
+import { useState } from "react"
 
-export default function HumidScreen({navigation}) {
+const HumidScreen = (props) => {
 
-  
+  const Url = "http://10.0.2.2:8080"
+
+  const [value, setValue] = useState("")
+
+  const data = {
+    token : props.props,
+    target_value : Number.parseInt(value)
+  }
+
+  const setTargetHumid = async (): Promise<void> => {
+    const changeState = await axios.post(Url + "/api/cage/setTargetHumid", data)
+        .then((response) => {
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+  }
 
   return (
     <View style={[styles.view]}>
@@ -15,14 +33,14 @@ export default function HumidScreen({navigation}) {
           <Text style={styles.box_items_2}>67.5</Text>
         </View>
         <View>
-          <TextInput style={styles.textInput_1} placeholder="Max-Temp"/>
+          <TextInput style={styles.textInput_1} onChangeText={value => setValue(value)} placeholder="Max-Temp"/>
           <TextInput style={styles.textInput_1} placeholder="Min-Temp"/>
         </View>
         <View style={styles.row}>
           <TextInput style={styles.textInput_2} placeholder="Sprinkle time(sec)"/>
           <TextInput style={styles.textInput_2} placeholder="Standard"/>
         </View>
-        <Text style={styles.button}> Apply </Text>
+        <Text style={styles.button} onPress={setTargetHumid}> Apply </Text>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
         </Text>
@@ -58,3 +76,5 @@ const styles = StyleSheet.create({
   box_items_2: {color: Colors.lightGreen300, fontSize: 25, fontFamily: 'Oswald-Bold', 
     borderRadius: 10, padding: 10, textAlign: 'center', justifyContent: 'center'},
 })
+
+export default HumidScreen

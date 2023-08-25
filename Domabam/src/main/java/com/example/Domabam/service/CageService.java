@@ -5,6 +5,7 @@ import com.example.Domabam.domain.CageInfo;
 import com.example.Domabam.domain.Humidity;
 import com.example.Domabam.domain.Temperature;
 import com.example.Domabam.dto.*;
+import com.example.Domabam.jwt.JwtDecoder;
 import com.example.Domabam.repository.JPACageInfoRepository;
 import com.example.Domabam.repository.JPACageRepository;
 import com.example.Domabam.repository.JPAHumidRepository;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import static com.example.Domabam.jwt.JwtDecoder.getPayload;
 
 @Service
 public class CageService {
@@ -39,16 +42,16 @@ public class CageService {
     // 추후 딜레이 조정 후 HW 값으로 변경
     @Scheduled(fixedDelay = 5000)
     public void insertTemp() {
-        List<Integer> list = jpaTempRepository.findTempByCageID(Long.parseLong("2"));
+        List<Integer> list = jpaTempRepository.findTempByCageID(Long.parseLong("52"));
         int size = list.size();
         Temperature temp = new Temperature();
         temp.setTemp(random.nextInt(50));
-        temp.setCage_id(Long.parseLong("2"));
+        temp.setCage_id(Long.parseLong("52"));
         temp.setObtained_time(LocalDateTime.now());
 
         if(size > 9) {
             for(;size > 9;size--) {
-                jpaTempRepository.deleteByCageID(Long.parseLong("2"));
+                jpaTempRepository.deleteByCageID(Long.parseLong("52"));
             }
         }
         jpaTempRepository.save(temp);
@@ -58,16 +61,16 @@ public class CageService {
     // 추후 딜레이 조정 후 HW 값으로 변경
     @Scheduled(fixedDelay = 5000)
     public void insertHumid() {
-        List<Integer> list = jpaHumidRepository.findHumidByCageID(Long.parseLong("2"));
+        List<Integer> list = jpaHumidRepository.findHumidByCageID(Long.parseLong("52"));
         int size = list.size();
         Humidity humid = new Humidity();
         humid.setHumid(random.nextInt(50));
-        humid.setCage_id(Long.parseLong("2"));
+        humid.setCage_id(Long.parseLong("52"));
         humid.setObtained_time(LocalDateTime.now());
 
         if(size > 9) {
             for(;size > 9;size--) {
-                jpaHumidRepository.deleteByCageID(Long.parseLong("2"));
+                jpaHumidRepository.deleteByCageID(Long.parseLong("52"));
             }
         }
         jpaHumidRepository.save(humid);
@@ -94,6 +97,19 @@ public class CageService {
 
         jpaCageRepository.save(cage);
 
+        Long cage_id = jpaCageRepository.findCageIdByUserId(cageDataDTO.getUser_id());
+
+        CageInfo cageInfo = new CageInfo().builder()
+                .cage_id(cage_id)
+                .humidity(0)
+                .temperature(0)
+                .lamp(false)
+                .heater(false)
+                .pump(false)
+                .build();
+
+        jpaCageInfoRepository.save(cageInfo);
+
         return cage;
     }
 
@@ -104,39 +120,68 @@ public class CageService {
         return cage;
     }
 
+    public CageInfo getCageInfo(TokenDTO tokenDTO) {
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(tokenDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        return jpaCageInfoRepository.findById_(cage_id);
+    }
+
     // 사육장에 사육 환경값 세팅
     // 온도
     public CageInfo setTargetTemp(TargetValueDTO targetValueDTO) {
-        jpaCageInfoRepository.updateTemp(targetValueDTO.getCage_id(), targetValueDTO.getTarget_value());
-        return jpaCageInfoRepository.findById_(targetValueDTO.getCage_id());
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(targetValueDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        jpaCageInfoRepository.updateTemp(cage_id, targetValueDTO.getTarget_value());
+        return jpaCageInfoRepository.findById_(cage_id);
     }
 
     // 사육장에 사육 환경값 세팅
     // 습도
     public CageInfo setTargetHumid(TargetValueDTO targetValueDTO) {
-        jpaCageInfoRepository.updateHumid(targetValueDTO.getCage_id(), targetValueDTO.getTarget_value());
-        return jpaCageInfoRepository.findById_(targetValueDTO.getCage_id());
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(targetValueDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        jpaCageInfoRepository.updateHumid(cage_id, targetValueDTO.getTarget_value());
+        return jpaCageInfoRepository.findById_(cage_id);
     }
 
     // 사육장에 사육 환경값 세팅
     // 조명
     public CageInfo setLampState(OnOffDTO onOffDTO) {
-        jpaCageInfoRepository.updateLamp(onOffDTO.getCage_id(), onOffDTO.isValue());
-        return jpaCageInfoRepository.findById_(onOffDTO.getCage_id());
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(onOffDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        System.out.println(cage_id);
+        if(onOffDTO.isValue()){
+            jpaCageInfoRepository.updateLamp(cage_id, false);
+        } else {
+            jpaCageInfoRepository.updateLamp(cage_id, true);
+        }
+        return jpaCageInfoRepository.findById_(cage_id);
     }
 
     // 사육장에 사육 환경값 세팅
     // 히터
     public CageInfo setHeaterState(OnOffDTO onOffDTO) {
-        jpaCageInfoRepository.updateHeater(onOffDTO.getCage_id(), onOffDTO.isValue());
-        return jpaCageInfoRepository.findById_(onOffDTO.getCage_id());
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(onOffDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        if(onOffDTO.isValue()){
+            jpaCageInfoRepository.updateHeater(cage_id, false);
+        } else {
+            jpaCageInfoRepository.updateHeater(cage_id, true);
+        }
+        return jpaCageInfoRepository.findById_(cage_id);
     }
 
     // 사육장에 사육 환경값 세팅
     // 펌프
     public CageInfo setPumpState(OnOffDTO onOffDTO) {
-        jpaCageInfoRepository.updatePump(onOffDTO.getCage_id(), onOffDTO.isValue());
-        return jpaCageInfoRepository.findById_(onOffDTO.getCage_id());
+        Long user_id = Long.valueOf(JwtDecoder.getUserID(getPayload(onOffDTO.getToken())));
+        Long cage_id = jpaCageRepository.findCageIdByUserId(user_id);
+        if(onOffDTO.isValue()){
+            jpaCageInfoRepository.updatePump(cage_id, false);
+        } else {
+            jpaCageInfoRepository.updatePump(cage_id, true);
+        }
+        return jpaCageInfoRepository.findById_(cage_id);
     }
 
 //    public CageInfo setCageInfo(CageInfoDTO cageInfo) {

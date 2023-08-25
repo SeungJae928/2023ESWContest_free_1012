@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 @Table(name = "cage_info")
 public class CageInfo {
 
@@ -16,15 +17,17 @@ public class CageInfo {
     private Long cage_id;
 
     @Column(name = "humidity")
-    private Integer humid;
+    private Integer humidity;
 
     @Column(name = "temperature")
-    private Integer temp;
+    private Integer temperature;
 
     @Column(name = "lamp")
-    private Boolean lamp;
+    private boolean lamp;
 
     @Column(name = "heater")
-    private Boolean heater;
+    private boolean heater;
 
+    @Column(name = "pump")
+    private boolean pump;
 }

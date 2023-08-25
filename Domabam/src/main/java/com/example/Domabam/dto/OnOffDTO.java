@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OnOffDTO {
-    private Long cage_id;
+    private String token;
     private boolean value;
 }

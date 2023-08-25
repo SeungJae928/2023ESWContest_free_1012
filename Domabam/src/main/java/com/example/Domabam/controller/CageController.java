@@ -104,6 +104,13 @@ public class CageController {
         return ApiResponseDTO.success(cageService.getCage(userDataDTO.getId()));
     }
 
+    @Operation(summary = "get CageInfo", description = "사육장 세팅 정보 가져오기")
+    @ApiResponse(responseCode = "200", description = "성공")
+    @PostMapping("/getCageInfo")
+    public ResponseEntity<CageInfo> getCageData(@RequestBody TokenDTO tokenDTO) {
+        return ApiResponseDTO.success(cageService.getCageInfo(tokenDTO));
+    }
+
     // 추후 사용
 //    @Operation(summary = "set Cage Data", description = "사육장 정보 저장하기")
 //    @ApiResponse(responseCode = "200", description = "성공")
@@ -142,7 +149,7 @@ public class CageController {
 
     @Operation(summary = "set Cage Pump State", description = "사육장 펌프 상태 설정하기")
     @ApiResponse(responseCode = "200", description = "성공")
-    @PostMapping("/setLampState")
+    @PostMapping("/setPumpState")
     public ResponseEntity<CageInfo> setPumpState(@RequestBody OnOffDTO onOffDTO) {
         return ApiResponseDTO.success(cageService.setPumpState(onOffDTO));
     }
