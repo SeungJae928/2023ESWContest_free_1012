@@ -18,11 +18,8 @@ public class Temperature {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "userID")
-    private Long userID;
-
-    @Column(name = "cage_name")
-    private String cage_name;
+    @Column(name = "cage_id")
+    private Long cage_id;
 
     @Column(name = "temperature")
     private Integer temp;

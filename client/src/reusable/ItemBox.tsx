@@ -19,6 +19,9 @@ export type boxData = {
 }
 
 export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, graph_data, val1_name, val2_name, val3_name, val1, val2, val3}) => {
+
+    // console.log(graph_data)
+
     return (
         <View style={[styles.view]}>
             <View style={[styles.topbox]}>

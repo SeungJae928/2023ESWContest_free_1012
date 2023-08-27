@@ -14,13 +14,11 @@ import java.util.List;
 public interface JPATempRepository extends JpaRepository<Temperature, Long> {
 
     @Transactional
-    @Query(value = "SELECT t.temperature FROM temperature t WHERE t.userID = :userId", nativeQuery = true)
-    List<Integer> findTempByUserID(Long userId);
-
-    List<Temperature> findByUserID(Long userid);
+    @Query(value = "SELECT t.temperature FROM temperature t WHERE t.cage_id = :cage_id", nativeQuery = true)
+    List<Integer> findTempByCageID(Long cage_id);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM temperature t WHERE t.userID = :userId ORDER BY t.obtained_time ASC limit 1", nativeQuery = true)
-    void deleteByUserid(@Param(value = "userId") Long userId);
+    @Query(value = "DELETE FROM temperature t WHERE t.cage_id = :cage_id ORDER BY t.obtained_time ASC limit 1", nativeQuery = true)
+    void deleteByCageID(@Param(value = "cage_id") Long cage_id);
 }

@@ -28,6 +28,7 @@ spring:
               - email
             client-name: Naver
             authorization-grant-type: authorization_code
+#            redirect-uri: http://www.rats-lh.com:8080/login/oauth2/code/naver
             redirect-uri: http://localhost:8080/login/oauth2/code/naver
 
           kakao:
@@ -39,7 +40,9 @@ spring:
             client-name: Kakao
             authorization-grant-type: authorization_code
             client-authentication-method: POST
-            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+#            redirect-uri: http://www.rats-lh.com/login/oauth2/code/kakao
+            redirect-uri: http://localhost:3000/login/oauth2/code/kakao
+
 
         provider:
           naver:
@@ -61,9 +64,14 @@ spring:
     password: rats8005
 
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+
+app:
+  auth:
+    tokenSecret: asg13g13g13g1g31g13gdgrw23453ghhgrg498job7j45678j48746846740906890j83895bn39nb59g490n520934589n73g45983750n17659834=09671n47v-187v93847u1i4b9813h9g48h31g
+    tokenExpiry: 2135125125

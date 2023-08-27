@@ -1,20 +1,52 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native'
 import { MD2Colors as Colors } from 'react-native-paper'
+import axios from "axios/index";
+import { useState } from "react"
 
-export default function PumpScreen({navigation}) {
+const LampScreen = (props) => {
+
+  const Url = "http://10.0.2.2:8080"
+
+  const [state, setState] = useState(false);
+
+  const changeLampState = async (): Promise<void> => {
+
+    const currentState = await axios.post(Url + "/api/cage/getCageInfo", {
+      token: props.props
+    })
+        .then((res) => {
+          setState(res.data.lamp)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+
+    const changeState = await axios.post(Url + "/api/cage/setLampState", {
+      token: props.props,
+      value: state
+    })
+        .then((response) => {
+          setState(!state)
+          console.log(state)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+  }
+
   return (
     <View style={[styles.view]}>
       <View>
         <Text style={styles.title}>Set Lamp Settings</Text>
         <View style={styles.information_box}>
           <Text style={styles.box_items_1}>Lamp Status :</Text>
-          <Text style={styles.box_items_2}>ON</Text>
+          <Text style={styles.box_items_2}>{state ? "ON" : "OFF"}</Text>
         </View>
         <View style={styles.row}>
           <TextInput style={styles.textInput_2} placeholder="Start-Time"/>
           <TextInput style={styles.textInput_2} placeholder="End-Time"/>
         </View>
-        <Text style={styles.button}> Apply </Text>
+        <Text style={styles.button} onPress={changeLampState}> Apply </Text>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
         </Text>
@@ -50,3 +82,5 @@ const styles = StyleSheet.create({
   box_items_2: {color: Colors.lightGreen300, fontSize: 30, fontFamily: 'Oswald-Bold', 
     borderRadius: 10, padding: 10, textAlign: 'center', justifyContent: 'center'},
 })
+
+export default LampScreen

@@ -1,8 +1,40 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MD2Colors as Colors } from 'react-native-paper'
+import axios from "axios";
+import { useState } from "react"
 
-export default function PumpScreen({navigation}) {
+const PumpScreen = (props) => {
+
+  const Url = "http://10.0.2.2:8080"
+
+  const [state, setState] = useState(false);
+
+  const changePumpState = async (): Promise<void> => {
+
+    const currentState = await axios.post(Url + "/api/cage/getCageInfo", {
+      token: props.props
+    })
+        .then((res) => {
+          setState(res.data.lamp)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+
+    const changeState = await axios.post(Url + "/api/cage/setPumpState", {
+      token: props.props,
+      value: state
+    })
+        .then((response) => {
+          setState(!state)
+          console.log(state)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+  }
+
   return (
     <View style={[styles.view]}>
       <View>
@@ -11,7 +43,7 @@ export default function PumpScreen({navigation}) {
           <TextInput style={styles.textInput} placeholder="Start Time"/>
           <TextInput style={styles.textInput} placeholder="Seconds"/>
         </View>
-        <Text style={styles.button}> Apply </Text>
+        <Text style={styles.button} onPress={changePumpState}> Apply </Text>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
         </Text>
@@ -35,3 +67,5 @@ const styles = StyleSheet.create({
 
   instruction: {fontFamily: 'Oswald-Bold', justifyContent: 'center', marginTop: 15, fontSize: 15, paddingHorizontal: 50}
 })
+
+export default PumpScreen

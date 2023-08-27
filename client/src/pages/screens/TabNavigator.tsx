@@ -8,6 +8,7 @@ import PumpScreen from './pump_screen'
 import TempScreen from './temp_screen'
 import LampScreen from './lamp_screen'
 import HumidScreen from './humid_screen'
+import {values} from "../../reusable/HomeComp";
 
 const Tab = createBottomTabNavigator()
 
@@ -42,14 +43,16 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
     }
 }
 
-export default function TabNavigator() {
+const TabNavigator = ({props}) => {
     return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="Home" component={HomeScreen}/>
-            <Tab.Screen name="Humid" component={HumidScreen}/>
-            <Tab.Screen name="Lamp" component={LampScreen}/>
-            <Tab.Screen name="Temp" component={TempScreen}/>
-            <Tab.Screen name="Pump" component={PumpScreen}/>
+            <Tab.Screen name="Home" children={() => <HomeScreen props={props}/>}/>
+            <Tab.Screen name="Humid" children={() => <HumidScreen props={props}/>}/>
+            <Tab.Screen name="Lamp" children={() => <LampScreen props={props}/>}/>
+            <Tab.Screen name="Temp" children={() => <TempScreen props={props}/>}/>
+            <Tab.Screen name="Pump" children={() => <PumpScreen props={props}/>}/>
         </Tab.Navigator>
     )
 }
+
+export default TabNavigator

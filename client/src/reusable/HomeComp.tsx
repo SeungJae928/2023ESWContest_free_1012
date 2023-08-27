@@ -6,30 +6,68 @@ import * as Data from '../data';
 import { ItemBox } from './ItemBox';
 import { MD2Colors as Colors } from 'react-native-paper';
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { useQuery } from "react-query";
 
 export type values = {
     cage : Data.CData
 }
 
-export const HomeComp: FC<values> = ({cage}) => {
+export const HomeComp: FC<values> = ({cage, props}) => {
     const [lamp, setLamp] = useState(
         cage.lampOn ? 'On' : 'Off'
     );
     const Url = `http://10.0.2.2:8080`
 
+    // @ts-ignore
+    const userId = parseInt(JSON.stringify(jwtDecode(props).sub).replace("\"", ""))
+
     const [humid, setHumid] = useState('')
     const [temp, setTemp] = useState('')
+    const [maxTemp, setMaxTemp] = useState('')
+    const [maxHumid, setMaxHumid] = useState('')
+    const [minTemp, setMinTemp] = useState('')
+    const [minHumid, setMinHumid] = useState('')
+    const [currentTemp, setCurrentTemp] = useState('')
+    const [currentHumid, setCurrentHumid] = useState('')
 
+    // const { isLoading, isError, data, error } = useQuery()
+
+    // 메인 접속시 최초 사육장 데이터 로드
+    useEffect(() => {
+        getTemp()
+        getHumid()
+        setMaxTemp(getMaxData(temp))
+        setMaxHumid(getMaxData(humid))
+        setMinTemp(getMinData(temp))
+        setMinHumid(getMinData(humid))
+        setCurrentTemp(getCurrentData(temp))
+        setCurrentHumid(getCurrentData(humid))
+    }, [])
+
+    // 60초 주기로 사육장 데이터 갱신
     useEffect(()=>{
         let timer = setInterval(() => {
             getTemp()
             getHumid()
-        }, 2000)
+            setMaxTemp(getMaxData(temp))
+            setMaxHumid(getMaxData(humid))
+            setMinTemp(getMinData(temp))
+            setMinHumid(getMinData(humid))
+            setCurrentTemp(getCurrentData(temp))
+            setCurrentHumid(getCurrentData(humid))
+            console.log("updatae data!")
+        }, 60000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    useQuery
+
     function getTemp() {
-        axios.get(Url + "/api/cage/getTemp")
+        axios.post(Url + "/api/cage/getTemp", {
+            id: userId,
+            name: ""
+        })
             .then((response) => {
                 setTemp(JSON.stringify(response.data))
             })
@@ -39,13 +77,40 @@ export const HomeComp: FC<values> = ({cage}) => {
     }
 
     function getHumid() {
-        axios.get(Url + "/api/cage/getHumid")
+        axios.post(Url + "/api/cage/getHumid", {
+            id: userId,
+            name: ""
+        })
             .then((response) => {
                 setHumid(JSON.stringify(response.data))
             })
             .catch((error) => {
                 console.log(error)
             })
+    }
+
+    function getMaxData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return Math.max(...arr)
+    }
+
+    function getMinData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return Math.min(...arr)
+    }
+
+    function getCurrentData(str :string) {
+        let parsedStr = str.replace('[', '')
+        parsedStr = parsedStr.replace(']', '')
+        parsedStr = parsedStr.replace('"', '')
+        let arr = parsedStr.split(',').map(Number)
+        return arr[arr.length - 1]
     }
 
     return (
