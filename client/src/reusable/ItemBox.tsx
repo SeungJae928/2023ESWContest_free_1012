@@ -30,7 +30,8 @@ export const ItemBox: FC<boxData> = ({boxName, buttonName, needGraph, graph_data
                 <Text onPress={() => {Alert.alert('Button Pressed')}} 
                     style={[styles.button]}>{buttonName}</Text>
             </View>
-            { needGraph && <Graph data={graph_data} /> }
+
+                { needGraph && <Graph data={graph_data} /> }
                 
             <View style={[styles.bottombox]}>
                 <View style={[styles.valueArea]}>

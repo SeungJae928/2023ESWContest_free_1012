@@ -9,7 +9,7 @@ const HomeScreen = ({props}) => {
     return (
         <View style={[styles.flex]}>
             <Content props={props}/>
-            <FloatingIcon/>
+            <FloatingIcon props={props}/>
         </View>
     )
 }

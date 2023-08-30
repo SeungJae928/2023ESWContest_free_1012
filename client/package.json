@@ -12,12 +12,15 @@
     "@react-navigation/stack": "^6.3.17",
     "@tsconfig/react-native": "^3.0.2",
     "@types/faker": "^6.6.9",
+    "@types/sockjs-client": "^1.5.1",
+    "@types/stompjs": "^2.3.5",
     "axios": "^1.4.0",
     "css-select": "^5.1.0",
     "deprecated-react-native-prop-types": "^4.2.0",
     "domutils": "^3.1.0",
     "faker": "^5.5.3",
     "jwt-decode": "^3.1.2",
+    "net": "^1.0.2",
     "react": "^18.2.0",
     "react-config": "^2.0.0",
     "react-native": "^0.72.3",
@@ -33,11 +36,14 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.10.0",
     "react-native-vector-icons": "^10.0.0",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3"
   },
   "devDependencies": {
     "@react-navigation/drawer": "^6.6.3",
-    "metro-config": "^0.77.0"
+    "metro-config": "^0.77.0",
+    "react-native-date-picker": "^4.2.14"
   },
   "proxy": "http://localhost:8080"
 }

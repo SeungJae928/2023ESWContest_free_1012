@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 
 export default function LoginScreen({navigation}) {
 
-  const Url = "http://10.0.2.2:8080"
+  const Url = "http://www.rats-lh.com:8080"
 
   const signInWithKakao = async (): Promise<void> => {
     const accessToken: KakaoOAuthToken = await loginWithKakaoAccount();

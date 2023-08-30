@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { FC } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet} from 'react-native';
@@ -8,6 +7,8 @@ import { MD2Colors as Colors } from 'react-native-paper';
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { useQuery } from "react-query";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 export type values = {
     cage : Data.CData
@@ -17,113 +18,50 @@ export const HomeComp: FC<values> = ({cage, props}) => {
     const [lamp, setLamp] = useState(
         cage.lampOn ? 'On' : 'Off'
     );
-    const Url = `http://10.0.2.2:8080`
+    const Url = `http://www.rats-lh.com:8080`
 
     // @ts-ignore
     const userId = parseInt(JSON.stringify(jwtDecode(props).sub).replace("\"", ""))
+    
+    const [stompClient, setStompClient] = useState(null)
+    const [goalhumid, setGoalHumid] = useState(65.0)
+    const [goaltemp, setGoalTemp] = useState(25.0)
+    const [currentTemp, setCurrentTemp] = useState(0)
+    const [currentHumid, setCurrentHumid] = useState(0)
+    const temp = '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]'
+    const humid = '[1,2,3,4,5,6,7,8,9,1,11,12,13,14,15,16,17,18,19,20,21,22,23,24]'
 
-    const [humid, setHumid] = useState('')
-    const [temp, setTemp] = useState('')
-    const [maxTemp, setMaxTemp] = useState('')
-    const [maxHumid, setMaxHumid] = useState('')
-    const [minTemp, setMinTemp] = useState('')
-    const [minHumid, setMinHumid] = useState('')
-    const [currentTemp, setCurrentTemp] = useState('')
-    const [currentHumid, setCurrentHumid] = useState('')
-
-    // const { isLoading, isError, data, error } = useQuery()
-
-    // 메인 접속시 최초 사육장 데이터 로드
     useEffect(() => {
-        getTemp()
-        getHumid()
-        setMaxTemp(getMaxData(temp))
-        setMaxHumid(getMaxData(humid))
-        setMinTemp(getMinData(temp))
-        setMinHumid(getMinData(humid))
-        setCurrentTemp(getCurrentData(temp))
-        setCurrentHumid(getCurrentData(humid))
-    }, [])
+        const sock = new SockJS("http://www.rats-lh.com:8080/chat");
+        const client = Stomp.over(sock);
+        setStompClient(client);
+      }, []);
 
-    // 60초 주기로 사육장 데이터 갱신
-    useEffect(()=>{
-        let timer = setInterval(() => {
-            getTemp()
-            getHumid()
-            setMaxTemp(getMaxData(temp))
-            setMaxHumid(getMaxData(humid))
-            setMinTemp(getMinData(temp))
-            setMinHumid(getMinData(humid))
-            setCurrentTemp(getCurrentData(temp))
-            setCurrentHumid(getCurrentData(humid))
-            console.log("updatae data!")
-        }, 60000)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useQuery
-
-    function getTemp() {
-        axios.post(Url + "/api/cage/getTemp", {
-            id: userId,
-            name: ""
-        })
-            .then((response) => {
-                setTemp(JSON.stringify(response.data))
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-
-    function getHumid() {
-        axios.post(Url + "/api/cage/getHumid", {
-            id: userId,
-            name: ""
-        })
-            .then((response) => {
-                setHumid(JSON.stringify(response.data))
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-
-    function getMaxData(str :string) {
-        let parsedStr = str.replace('[', '')
-        parsedStr = parsedStr.replace(']', '')
-        parsedStr = parsedStr.replace('"', '')
-        let arr = parsedStr.split(',').map(Number)
-        return Math.max(...arr)
-    }
-
-    function getMinData(str :string) {
-        let parsedStr = str.replace('[', '')
-        parsedStr = parsedStr.replace(']', '')
-        parsedStr = parsedStr.replace('"', '')
-        let arr = parsedStr.split(',').map(Number)
-        return Math.min(...arr)
-    }
-
-    function getCurrentData(str :string) {
-        let parsedStr = str.replace('[', '')
-        parsedStr = parsedStr.replace(']', '')
-        parsedStr = parsedStr.replace('"', '')
-        let arr = parsedStr.split(',').map(Number)
-        return arr[arr.length - 1]
-    }
+    const sendMessage = async (_temp, _humid, _des) => {
+        if (_temp !== "" && _humid !== "") {
+          const data = {
+            token: {props}.props,
+            temp: _temp,
+            humid: _humid,
+            lamp_start : new Date(),
+            lamp_stop : new Date(),
+            pump_start : new Date(),
+            pump_stop : new Date(),
+          };
+          if (stompClient) {
+            console.log("message sending.....");
+            stompClient.send("/app/chat/" + _des, {}, JSON.stringify(data));
+          }
+        }
+      };
 
     return (
         <View>
             <ItemBox boxName='Temperature' buttonName='edit settings'
-                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current temp'
-                val2={cage.max_temp} val2_name='max temp'
-                val3={cage.min_temp} val3_name='min temp'/>
+                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current temp'/>
 
             <ItemBox boxName='Humidity' buttonName='edit settings' 
-                needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'
-                val2={cage.max_temp} val2_name='max humid'
-                val3={cage.min_temp} val3_name='min humid'/>
+                needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'/>
 
             <ItemBox boxName='Lamp' buttonName='edit settings'
                 needGraph = {false} val1={lamp} val1_name='current status' 
@@ -137,11 +75,17 @@ export const HomeComp: FC<values> = ({cage, props}) => {
             <ItemBox boxName='Mode' buttonName='edit mode' 
                 needGraph = {false} val1={cage.mode} val1_name='current mode: '/>
 
-            <View style={styles.blank}/>
+            <View style={styles.blank}>
+                <Text style={styles.copyright}>Copyright by Hojunseo, Seungjaebang, Jihuntak</Text>
+                <Text style={styles.copyright}>2023</Text>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    blank: {backgroundColor: Colors.grey800 , padding: 30}
+    button : {flex : 1, textAlign :'center', backgroundColor : Colors.purple500, color: 'white', 
+        padding: 10, margin: 10, fontSize: 30, borderRadius : 20, fontFamily: 'Oswald-Bold'},
+    blank: {backgroundColor: Colors.grey800 , padding: 30},
+    copyright : {flex: 1, color: 'white', textAlign: 'center', fontSize: 15}
 })

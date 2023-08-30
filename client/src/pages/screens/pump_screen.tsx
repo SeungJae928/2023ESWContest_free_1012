@@ -6,7 +6,7 @@ import { useState } from "react"
 
 const PumpScreen = (props) => {
 
-  const Url = "http://10.0.2.2:8080"
+  const Url = "http://www.rats-lh.com:8080"
 
   const [state, setState] = useState(false);
 

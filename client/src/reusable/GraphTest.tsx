@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {MD2Colors as Colors} from 'react-native-paper'
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import {
     LineChart,
@@ -41,7 +42,7 @@ export const Graph = (props) => {
             { !exist ? <Splash/> :
                 <LineChart
                     data={{
-                        labels: ["January", "February", "March", "April", "May", "June"],
+                        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
                         datasets: [
                             {
                                 data: [
@@ -50,20 +51,38 @@ export const Graph = (props) => {
                                     Number.parseInt(cageData[2]),
                                     Number.parseInt(cageData[3]),
                                     Number.parseInt(cageData[4]),
-                                    Number.parseInt(cageData[5])
+                                    Number.parseInt(cageData[5]),
+                                    Number.parseInt(cageData[6]),
+                                    Number.parseInt(cageData[7]),
+                                    Number.parseInt(cageData[8]),
+                                    Number.parseInt(cageData[9]),
+                                    Number.parseInt(cageData[10]),
+                                    Number.parseInt(cageData[11]),
+                                    Number.parseInt(cageData[12]),
+                                    Number.parseInt(cageData[13]),
+                                    Number.parseInt(cageData[14]),
+                                    Number.parseInt(cageData[15]),
+                                    Number.parseInt(cageData[16]),
+                                    Number.parseInt(cageData[17]),
+                                    Number.parseInt(cageData[18]),
+                                    Number.parseInt(cageData[19]),
+                                    Number.parseInt(cageData[20]),
+                                    Number.parseInt(cageData[21]),
+                                    Number.parseInt(cageData[22]),
+                                    Number.parseInt(cageData[23])
                                 ]
                             }
                         ]
                     }}
-                    width={Dimensions.get("window").width - 20} // from react-native
+                    width={Dimensions.get("window").width * 0.9} // from react-native
                     height={220}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
+                    yAxisLabel=""
+                    yAxisSuffix=""
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
-                        backgroundColor: "#e26a00",
-                        backgroundGradientFrom: "#fb8c00",
-                        backgroundGradientTo: "#ffa726",
+                        backgroundColor: Colors.green50,
+                        backgroundGradientFrom: Colors.purple200,
+                        backgroundGradientTo: Colors.red200,
                         decimalPlaces: 2, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -71,15 +90,15 @@ export const Graph = (props) => {
                             borderRadius: 16
                         },
                         propsForDots: {
-                            r: "6",
-                            strokeWidth: "2",
-                            stroke: "#ffa726"
+                            r: "4",
+                            strokeWidth: "1",
+                            stroke: Colors.purple600
                         }
                     }}
                     bezier
                     style={{
                         marginVertical: 8,
-                        borderRadius: 16
+                        borderRadius: 15
                     }}
                 />}
 </View>
@@ -87,5 +106,5 @@ export const Graph = (props) => {
 }
 
 const styles = StyleSheet.create({
-  graph: { margin: 10 }
+  graph: { margin: 10 , flex: 1, justifyContent: 'center', alignItems: 'center'}
 })
