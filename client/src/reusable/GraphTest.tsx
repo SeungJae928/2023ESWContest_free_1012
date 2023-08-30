@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {MD2Colors as Colors} from 'react-native-paper'
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import axios from "axios";
 import {
     LineChart,
     BarChart,
@@ -15,7 +16,28 @@ import Splash from "../components/Splash";
 export const Graph = (props) => {
 
     const [exist, setExist] = useState(false)
+    const [xAxis, setxAsis] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23])
     const [cageData, setData] = useState([])
+    const [date, setDate] = useState(new Date())
+    let i = 0;
+
+    useEffect(() => {
+        let timer = setInterval(() => {
+            setDate(new Date())
+            const hour = date.getHours()
+            for(i = 0; i < 24; i++){
+                if(i == 0){
+                    xAxis[i] = hour + 1
+                }
+                else{
+                    xAxis[i] = xAxis[i - 1] + 1
+                    if(xAxis[i] > 23){
+                        xAxis[i] = xAxis[i] % 24 
+                    }
+                }
+            }
+        }, 50000)
+    }, [])
 
     useEffect(()=>{
 
@@ -42,7 +64,7 @@ export const Graph = (props) => {
             { !exist ? <Splash/> :
                 <LineChart
                     data={{
-                        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
+                        labels: xAxis,
                         datasets: [
                             {
                                 data: [

@@ -35,6 +35,28 @@ export const HomeComp: FC<values> = ({cage, props}) => {
             .catch((e) => {
               console.log(e)
             })
+            const date = new Date()
+            if (date.getMinutes()){
+                axios.post(Url + "/api/cage/getTemp", {
+                    token: {props}.props
+                  })
+                .then((data) => {
+                    setTempList(data.data)
+                })
+                .catch((e) => {
+                  console.log(e)
+                })
+
+                axios.post(Url + "/api/cage/getHumid", {
+                    token: {props}.props
+                  })
+                .then((data) => {
+                    setHumidList(data.data)
+                })
+                .catch((e) => {
+                  console.log(e)
+                })
+            }
             //console.log("updated data!")
         }, 5000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,8 +68,8 @@ export const HomeComp: FC<values> = ({cage, props}) => {
     const userId = parseInt(JSON.stringify(jwtDecode(props).sub).replace("\"", ""))
     const [currentTemp, setCurrentTemp] = useState(0)
     const [currentHumid, setCurrentHumid] = useState(0)
-    const temp = '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]'
-    const humid = '[1,2,3,4,5,6,7,8,9,1,11,12,13,14,15,16,17,18,19,20,21,22,23,24]'
+    const [temp, setTempList] = useState('[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]')
+    const [humid, setHumidList] = useState('[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]')
 
     useEffect(() => {
         const sock = new SockJS("http://www.rats-lh.com:8080/chat");

@@ -22,7 +22,7 @@ const InputScreen = ({props}) => {
   const [lampStart, setLampStart] = useState(new Date());
   const [lampStop, setLampStop] = useState(new Date());
   const [pumpStart, setPumpStart] = useState(new Date());
-  const [pumpHold, setPumpHold] = useState(new Date());
+  const [pumpHold, setPumpHold] = useState(0);
 
   const [open, setOpen] = useState(false)
   const [open1, setOpen1] = useState(false)
@@ -37,6 +37,13 @@ const InputScreen = ({props}) => {
   const onError = (error) => {
     console.log(error);
   };
+
+  const convertToKST = (date) => {
+    let utc = new Date(date)
+    let kst = utc.setHours(utc.getHours() + 9)
+    let result = new Date(kst)
+    return result
+  }
 
   const onConnected = () => {
     if (stompClient !== undefined && stompClient !== null) {
@@ -92,10 +99,8 @@ useEffect(() => {
           <Text style={styles.box_items_1}>Current Temp is :</Text>
           <Text style={styles.box_items_2}>{temp}°C</Text>
         </View>*/}
-        <View>
-          <TextInput style={styles.textInput_1} onChangeText={value => setTemp(value)} keyboardType="number-pad"
-
-/>
+        <View> 
+         <TextInput style={styles.textInput_1} onChangeText={value => setTemp(value)} keyboardType="number-pad"/>
         </View>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
@@ -118,10 +123,8 @@ useEffect(() => {
           mode = 'time'
           onConfirm={(date) => {
             setOpen(false)
-            setLampStart(date)
-            console.log(date.getHours())
-            console.log(date.getMinutes())
-            console.log(date)
+            const result = convertToKST(date)
+            setLampStart(result)
           }}
           onCancel={() => {
             setOpen(false)
@@ -133,7 +136,8 @@ useEffect(() => {
           mode = 'time' 
           onConfirm={(date) => {
             setOpen1(false)
-            setLampStop(date)
+            const result = convertToKST(date)
+            setLampStop(result)
           }}
           onCancel={() => {
             setOpen(false)
@@ -148,20 +152,21 @@ useEffect(() => {
 
       <View style={styles.view}>
         <Text style={styles.title}>Set Pump Settings</Text>
+        <TextInput style={styles.textInput_1} onChangeText={value => setPumpHold(value)} keyboardType="number-pad"/>
         <View style={styles.row}>
         <Button title="Set Start Time" onPress={() => setOpen2(true)} />
         <DatePicker modal open={open2} date={pumpStart}
           mode = 'time'
-          onConfirm={(selectedDate) => { // 날짜 또는 시간 선택 시
-            setOpen2(false); // 모달 close
-            setPumpStart(selectedDate); // 선택한 날짜 변경
+          onConfirm={(date) => { // 날짜 또는 시간 선택 시
+            setOpen2(false)
+            const result = convertToKST(date)
+            setPumpStart(result)
           }}
           onCancel={() => {
             setOpen(false)
           }}
         />
-
-        <Button style={styles.button} title="Set Stop Time" onPress={() => setOpen3(true)} />
+        {/*<Button style={styles.button} title="Set Hold Time" onPress={() => setOpen3(true)} />
         <DatePicker modal open={open3} date={pumpHold}
           mode = 'time'
           onConfirm={(date) => {
@@ -171,7 +176,7 @@ useEffect(() => {
           onCancel={() => {
             setOpen(false)
           }}
-        />
+        />*/}
         </View>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
@@ -186,7 +191,7 @@ useEffect(() => {
           <Text style={styles.box_items_2}>{humid}%</Text>
         </View>*/}
         <View>
-          <TextInput style={styles.textInput_1} onChangeText={value => setHumid(value)} placeholder="Max-Temp" keyboardType="number-pad"/>
+          <TextInput style={styles.textInput_1} onChangeText={value => setHumid(value)} keyboardType="number-pad"/>
         </View>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
