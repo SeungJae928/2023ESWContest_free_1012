@@ -15,17 +15,35 @@ export type values = {
 }
 
 export const HomeComp: FC<values> = ({cage, props}) => {
+
+    const [stompClient, setStompClient] = useState(null);
     const [lamp, setLamp] = useState(
         cage.lampOn ? 'On' : 'Off'
     );
+    const [data, setData] = useState('')
+    
+    // 60초 주기로 사육장 데이터 갱신
+    useEffect(() => {
+        let timer = setInterval(() => {
+            axios.post(Url + "/api/cage/getCurrentData", {
+                token: {props}.props
+              })
+            .then((data) => {
+                setCurrentTemp(data.data.current_temp)
+                setCurrentHumid(data.data.current_humid)
+            })
+            .catch((e) => {
+              console.log(e)
+            })
+            //console.log("updated data!")
+        }, 5000)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const Url = `http://www.rats-lh.com:8080`
 
     // @ts-ignore
     const userId = parseInt(JSON.stringify(jwtDecode(props).sub).replace("\"", ""))
-    
-    const [stompClient, setStompClient] = useState(null)
-    const [goalhumid, setGoalHumid] = useState(65.0)
-    const [goaltemp, setGoalTemp] = useState(25.0)
     const [currentTemp, setCurrentTemp] = useState(0)
     const [currentHumid, setCurrentHumid] = useState(0)
     const temp = '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]'
@@ -37,31 +55,13 @@ export const HomeComp: FC<values> = ({cage, props}) => {
         setStompClient(client);
       }, []);
 
-    const sendMessage = async (_temp, _humid, _des) => {
-        if (_temp !== "" && _humid !== "") {
-          const data = {
-            token: {props}.props,
-            temp: _temp,
-            humid: _humid,
-            lamp_start : new Date(),
-            lamp_stop : new Date(),
-            pump_start : new Date(),
-            pump_stop : new Date(),
-          };
-          if (stompClient) {
-            console.log("message sending.....");
-            stompClient.send("/app/chat/" + _des, {}, JSON.stringify(data));
-          }
-        }
-      };
-
     return (
         <View>
             <ItemBox boxName='Temperature' buttonName='edit settings'
-                needGraph = {true} graph_data={temp} val1={cage.current_temp} val1_name='current temp'/>
+                needGraph = {true} graph_data={temp} val1={currentTemp} val1_name='current temp'/>
 
             <ItemBox boxName='Humidity' buttonName='edit settings' 
-                needGraph = {true} graph_data={humid} val1={cage.current_temp} val1_name='current humid'/>
+                needGraph = {true} graph_data={humid} val1={currentHumid} val1_name='current humid'/>
 
             <ItemBox boxName='Lamp' buttonName='edit settings'
                 needGraph = {false} val1={lamp} val1_name='current status' 

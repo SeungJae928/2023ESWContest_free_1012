@@ -25,6 +25,9 @@ const InputScreen = ({props}) => {
   const [pumpHold, setPumpHold] = useState(new Date());
 
   const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
+  const [open2, setOpen2] = useState(false)
+  const [open3, setOpen3] = useState(false)
 
   const onMessageReceived = (payload) => {
     const message = JSON.parse(payload.body);
@@ -42,7 +45,6 @@ const InputScreen = ({props}) => {
   };
 
   const sendMessage = async (des) => {
-
       const data = {
         token: {props}.props,
         temp: temp,
@@ -56,8 +58,18 @@ const InputScreen = ({props}) => {
         console.log("message sending.....");
         stompClient.send("/app/chat/" + des, {}, JSON.stringify(data));
       }
-    
   };
+
+  const changeLamp = async (des) => {
+    const data = {
+      token: {props}.props,
+      state: lamp
+    };
+    if (stompClient) {
+      console.log("message sending.....");
+      stompClient.send("/app/chat/" + des, {}, JSON.stringify(data));
+    }
+};
 
 useEffect(() => {
     const sock = new SockJS("http://www.rats-lh.com:8080/chat");
@@ -76,10 +88,10 @@ useEffect(() => {
       <View style={[styles.view]}>
       <View>
         <Text style={styles.title}>Set Temperature Settings</Text>
-        <View style={styles.information_box}>
+        {/*<View style={styles.information_box}>
           <Text style={styles.box_items_1}>Current Temp is :</Text>
           <Text style={styles.box_items_2}>{temp}°C</Text>
-        </View>
+        </View>*/}
         <View>
           <TextInput style={styles.textInput_1} onChangeText={value => setTemp(value)} keyboardType="number-pad"
 
@@ -97,7 +109,7 @@ useEffect(() => {
           <Text style={styles.box_items_1}>Lamp Status :</Text>
           <Text style={styles.box_items_2}>{lamp ? "ON" : "OFF"}</Text>
           <Switch onValueChange={() => {setLamp(!lamp)
-          
+            changeLamp('changeLampState')
           }} value = {lamp}/>
         </View>
         <View style={styles.row}>
@@ -107,17 +119,20 @@ useEffect(() => {
           onConfirm={(date) => {
             setOpen(false)
             setLampStart(date)
+            console.log(date.getHours())
+            console.log(date.getMinutes())
+            console.log(date)
           }}
           onCancel={() => {
             setOpen(false)
           }}
         />
 
-        <Button title="Set Stop Time" onPress={() => setOpen(true)} />
-        <DatePicker modal open={open} date={lampStop}
-          mode = 'time'
+        <Button title="Set Stop Time" onPress={() => setOpen1(true)} />
+        <DatePicker modal open={open1} date={lampStop}
+          mode = 'time' 
           onConfirm={(date) => {
-            setOpen(false)
+            setOpen1(false)
             setLampStop(date)
           }}
           onCancel={() => {
@@ -134,23 +149,23 @@ useEffect(() => {
       <View style={styles.view}>
         <Text style={styles.title}>Set Pump Settings</Text>
         <View style={styles.row}>
-        <Button title="Set Start Time" onPress={() => setOpen(true)} />
-        <DatePicker modal open={open} date={lampStart}
+        <Button title="Set Start Time" onPress={() => setOpen2(true)} />
+        <DatePicker modal open={open2} date={pumpStart}
           mode = 'time'
-          onConfirm={(date) => {
-            setOpen(false)
-            setPumpStart(date)
+          onConfirm={(selectedDate) => { // 날짜 또는 시간 선택 시
+            setOpen2(false); // 모달 close
+            setPumpStart(selectedDate); // 선택한 날짜 변경
           }}
           onCancel={() => {
             setOpen(false)
           }}
         />
 
-        <Button style={styles.button} title="Set Stop Time" onPress={() => setOpen(true)} />
-        <DatePicker modal open={open} date={lampStop}
+        <Button style={styles.button} title="Set Stop Time" onPress={() => setOpen3(true)} />
+        <DatePicker modal open={open3} date={pumpHold}
           mode = 'time'
           onConfirm={(date) => {
-            setOpen(false)
+            setOpen3(false)
             setPumpHold(date)
           }}
           onCancel={() => {
@@ -166,10 +181,10 @@ useEffect(() => {
       <View style={[styles.view]}>
       <View>
         <Text style={styles.title}>Set Humidity Settings</Text>
-        <View style={styles.information_box}>
+        {/*<View style={styles.information_box}>
           <Text style={styles.box_items_1}>Current Humidity :</Text>
           <Text style={styles.box_items_2}>{humid}%</Text>
-        </View>
+        </View>*/}
         <View>
           <TextInput style={styles.textInput_1} onChangeText={value => setHumid(value)} placeholder="Max-Temp" keyboardType="number-pad"/>
         </View>
@@ -180,7 +195,6 @@ useEffect(() => {
     </View>
 
       <Text style={styles.button} onPress={() => {sendMessage("targetValue")}}> Apply </Text>
-
       <View style={styles.blank}/>
 
     </ScrollView>
