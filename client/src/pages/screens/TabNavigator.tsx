@@ -9,6 +9,7 @@ import TempScreen from './temp_screen'
 import LampScreen from './lamp_screen'
 import HumidScreen from './humid_screen'
 import {values} from "../../reusable/HomeComp";
+import InputScreen from './input_screen'
 
 const Tab = createBottomTabNavigator()
 
@@ -24,9 +25,10 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
     return{
         headerShown: false,
         tabBarStyle: {backgroundColor : Colors.grey800},
+        tabBarActiveTintColor: 'white',
         tabBarIcon: ({focused, color, size} : TabBarIconProps) => {
             const {name} = route
-            const focusedSize = focused ? size+6 : size
+            const focusedSize = focused ? size + 6 : size
             const focusedColor = focused ? Colors.black : color
             switch (name) {
                 case 'Pump' :
@@ -37,6 +39,8 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
                     return <Icon name="lamp" size={size} color={color}/>
                 case 'Temp' :
                     return <Icon name="thermometer-low" size={size} color={color}/>
+                case 'Input' :
+                    return <Icon name="keyboard" size={size} color={color}/>
             }
             return <Icon name="home" size={size} color={color}/>
         }
@@ -45,12 +49,13 @@ const screenOptions = ({route}: {route: RouteProp<ParamListBase, string>}) => {
 
 const TabNavigator = ({props}) => {
     return (
-        <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Navigator screenOptions={screenOptions} >
             <Tab.Screen name="Home" children={() => <HomeScreen props={props}/>}/>
-            <Tab.Screen name="Humid" children={() => <HumidScreen props={props}/>}/>
+            {/*<Tab.Screen name="Humid" children={() => <HumidScreen props={props}/>}/>
             <Tab.Screen name="Lamp" children={() => <LampScreen props={props}/>}/>
             <Tab.Screen name="Temp" children={() => <TempScreen props={props}/>}/>
-            <Tab.Screen name="Pump" children={() => <PumpScreen props={props}/>}/>
+            <Tab.Screen name="Pump" children={() => <PumpScreen props={props}/>}/>*/}
+            <Tab.Screen name="Input" children={() => <InputScreen props={props}/>}/>
         </Tab.Navigator>
     )
 }

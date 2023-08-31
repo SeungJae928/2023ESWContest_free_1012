@@ -1,13 +1,15 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native'
 import { MD2Colors as Colors } from 'react-native-paper'
+import { Switch } from 'react-native-gesture-handler';
 import axios from "axios/index";
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 const LampScreen = (props) => {
 
-  const Url = "http://10.0.2.2:8080"
+  const Url = "http://www.rats-lh.com:8080"
 
   const [state, setState] = useState(false);
+  const [stompClient, setStompClient] = useState(null);
 
   const changeLampState = async (): Promise<void> => {
 
@@ -46,10 +48,19 @@ const LampScreen = (props) => {
           <TextInput style={styles.textInput_2} placeholder="Start-Time"/>
           <TextInput style={styles.textInput_2} placeholder="End-Time"/>
         </View>
+        
         <Text style={styles.button} onPress={changeLampState}> Apply </Text>
         <Text style={styles.instruction}> Instructions : if you set your start-time, pump will start at the time.
           and also, you can set how long pump will operate.
         </Text>
+
+        <View style={styles.switch}>
+          <Switch
+              id="isChecked"
+              onChange={() => {setState(!state)}}
+            />
+        </View>
+
       </View>
     </View>
   );
@@ -81,6 +92,8 @@ const styles = StyleSheet.create({
 
   box_items_2: {color: Colors.lightGreen300, fontSize: 30, fontFamily: 'Oswald-Bold', 
     borderRadius: 10, padding: 10, textAlign: 'center', justifyContent: 'center'},
+
+  switch : {alignItems: 'center'}
 })
 
 export default LampScreen
