@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-@Tag(name = "OAuth2UserAPI", description = "OAuth2와 Spring Security를 이용한 소셜 로그인 API")
+@Tag(name = "AuthUserAPI", description = "Spring Security, Jwt를 이용한 소셜 로그인 API")
 @RestController
 @Slf4j
 @RequestMapping(value = "/auth")

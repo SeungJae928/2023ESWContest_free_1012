@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OnOffDTO {
     private String token;
-    private boolean value;
+    private boolean state;
 }

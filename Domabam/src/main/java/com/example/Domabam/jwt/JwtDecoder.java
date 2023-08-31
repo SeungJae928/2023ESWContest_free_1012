@@ -8,12 +8,8 @@ import java.util.Map;
 
 public class JwtDecoder {
 
-    public static String getPayload(String jwt) {
+    public static Long getUserID(String jwt) {
         String payload = jwt.split("\\.")[1];
-        return payload;
-    }
-
-    public static String getUserID(String payload) {
         Base64.Decoder decoder = Base64.getUrlDecoder();
         String data = new String(decoder.decode(payload));
         JsonParser jsonParser = new BasicJsonParser();
@@ -23,7 +19,7 @@ public class JwtDecoder {
             System.out.println("유효하지 않은 토큰"); //추후에 Exception 처리
         }
 
-        return jsonArr.get("sub").toString();
+        return Long.parseLong(jsonArr.get("sub").toString());
     }
 
 }
