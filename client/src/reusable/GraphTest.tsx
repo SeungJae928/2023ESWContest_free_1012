@@ -36,7 +36,7 @@ export const Graph = (props) => {
                     }
                 }
             }
-        }, 50000)
+        }, 5000)
     }, [])
 
     useEffect(()=>{
