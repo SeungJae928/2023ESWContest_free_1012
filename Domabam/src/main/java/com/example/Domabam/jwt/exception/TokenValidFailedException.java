@@ -1,4 +1,4 @@
-package com.example.Domabam.jwt;
+package com.example.Domabam.jwt.exception;
 
 public class TokenValidFailedException extends RuntimeException{
 

@@ -3,15 +3,11 @@ package com.example.Domabam.client;
 import com.example.Domabam.domain.Provider;
 import com.example.Domabam.domain.Role;
 import com.example.Domabam.domain.User;
-import com.example.Domabam.dto.KakaoUserDTO;
-import com.example.Domabam.jwt.TokenValidFailedException;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.BufferedReader;
 import java.io.IOException;

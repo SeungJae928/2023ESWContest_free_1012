@@ -51,6 +51,12 @@ dependencies {
 	// WebClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	// WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// ModelMapper
+	implementation 'org.modelmapper:modelmapper:2.4.5'
+
 	implementation 'org.hibernate.validator:hibernate-validator'
 }
 
