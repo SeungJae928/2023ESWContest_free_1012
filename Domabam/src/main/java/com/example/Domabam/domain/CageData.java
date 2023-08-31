@@ -1,29 +1,32 @@
 package com.example.Domabam.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@AllArgsConstructor
 @NoArgsConstructor
-public class Temperature {
-
+@Builder
+public class CageData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "cage_id")
-    private Long cage_id;
+    private String cage_id;
 
     @Column(name = "temperature")
-    private Integer temp;
+    private float temp;
+
+    @Column(name = "humidity")
+    private float humid;
 
     @Column(name = "obtained_time")
-    private LocalDateTime obtained_time;
+    private Date obtained_time;
 }

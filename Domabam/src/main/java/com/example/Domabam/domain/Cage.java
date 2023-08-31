@@ -12,9 +12,8 @@ import lombok.*;
 public class Cage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "serial")
+    private String serial_no;
 
     @Column(name = "user_id")
     private Long user_id;

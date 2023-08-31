@@ -55,7 +55,7 @@ export const Graph = (props) => {
                             }
                         ]
                     }}
-                    width={Dimensions.get("window").width - 20} // from react-native
+                    width={Dimensions.get("window").width - 40} // from react-native
                     height={220}
                     yAxisLabel="$"
                     yAxisSuffix="k"

@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CageDataDTO {
 
-    private Long user_id;
+    private String token;
     private String cage_name;
+    private String serial;
 }
